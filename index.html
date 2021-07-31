@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cover generator</title>
+        <link rel="shortcut icon" href="favicon.ico?v=1">
+
+        <link rel="stylesheet" type="text/css" href="css/index.css?v=1">
+<style>
+</style>
+        
+        <script src="js/dom-to-image.js"></script>
+        <script src="js/SizeElement.js"></script>
+        <script src="js/ScaleManager.js"></script>
+        <script src="js/StyleManager.js"></script>
+        <script src="js/FontManager.js"></script>
+    </head>
+    <body>
+        
+        <div id="splash" style="background: #ccc; cursor: wait; display: none; height: 100%; position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;"></div>
+        
+        <div class="page">
+
+            <div id="header">
+                <button id="download">Download</button>
+                <h1>Generátor <span>typografické</span> obálky</h1>
+            </div>
+            
+            <div id="fp-wrapper">
+                <div id="frontpage">
+                    <div class="wrapper" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
+                        <div class="text" style="font-family: serif; font-size: 30px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
+                            <span>Jméno Autora</span>
+                        </div>
+                    </div>
+                    <div class="wrapper" style="background: transparent; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 1; z-index: 1;">
+                        <div class="text" style="font-family: serif; font-size: 15px; font-style: normal; font-weight: normal; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
+                            <span>obrázek/popis</span>
+                        </div>
+                    </div>
+                    <div class="wrapper" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
+                        <div class="text" style="font-family: serif; font-size: 35px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
+                            <span>Titul publikace</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="pointer"></div>
+            </div>
+
+            <div id="form">
+                <h2>Aktivní panel</h2>
+                <form id="attributes">
+                    <h3 data-accordeon="table-attributes-text">Nastavení textu</h3>
+                    <table id="table-attributes-text">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-text">Text (HTML)</label>
+                                </th>
+                                <td>
+                                    <textarea data-target="div.text span" data-method="html" id="attributes-text" name="text"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-paddingTop">Horní okraj</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-paddingTop" name="paddingTop">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-paddingRight">Pravý okraj</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-paddingRight" name="paddingRight">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-paddingBottom">Spodní okraj</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-paddingBottom" name="paddingBottom">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-paddingLeft" >Levý okraj</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-paddingLeft" name="paddingLeft">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-textAlign">Zarovnání textu</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-textAlign" name="textAlign">
+                                        <option value="left">Doleva</option>
+                                        <option value="center">Na střed</option>
+                                        <option value="right">Doprava</option>
+                                        <option value="justify">Do bloku</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-verticalAlign">Svislé zarování textu</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-verticalAlign" name="verticalAlign">
+                                        <option value="baseline">baseline</option>
+                                        <option value="bottom">bottom</option>
+                                        <option value="middle">middle</option>
+                                        <option value="revert">revert</option>
+                                        <option value="sub">sub</option>
+                                        <option value="super">super</option>
+                                        <option value="text-bottom">text-bottom</option>
+                                        <option value="text-top">text-top</option>
+                                        <option value="top">top</option>
+                                        <option value="unset">unset</option>
+                                        <option value="-moz-middle-with-baseline">-moz-middle-with-baseline</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-fontSize">Velikost písma</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-fontSize" name="fontSize">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-color">Barva písma</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" id="attributes-color" name="color">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundColorSpan">Barva podkladu textu</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text span" data-attribute="backgroundColor" id="attributes-backgroundColorSpan" name="backgroundColorSpan">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-lineHeight">Výška řádku</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" data-type="size" id="attributes-lineHeight" name="lineHeight">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-textShadow">Text shadow</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" id="attributes-textShadow" name="textShadow">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-fontWeight">Tučnost písma</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-fontWeight" name="fontWeight">
+                                        <option value="">--</option>
+                                        <option value="normal">normální</option>
+                                        <option value="bold">tučné</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-fontStyle">Styl písma</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-fontStyle" name="fontStyle">
+                                        <option value="">--</option>
+                                        <option value="normal">normální</option>
+                                        <option value="italic">kurzíva</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-fontFamily">Řez písma</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-fontFamily" name="fontFamily">
+                                        <option value="">[neurčeno]</option>
+                                        <option value="serif">serif</option>
+                                        <option value="sans-serif">sans serif</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-rotate">Rotace textu</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" id="attributes-rotate" name="rotate">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 data-accordeon="table-attributes-panel">Nastavení panelu</h3>
+                    <table id="table-attributes-panel">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="attributes-flexGrow">Výška (flex-grow)</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-flexGrow" name="flexGrow">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-boxShadow">Box shadow</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-boxShadow" name="boxShadow">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundColorBox">Podkladová barva</label>
+                                </th>
+                                <td>
+                                    <input data-attribute="backgroundColor" id="attributes-backgroundColorBox" name="backgroundColorBox">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundImage">Podklad (obrázek)</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-backgroundImage" name="backgroundImage">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <button id="image-button">Načíst obrázek</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundRepeat">Podklad (opakování)</label>
+                                </th>
+                                <td>
+                                    <select id="attributes-backgroundRepeat" name="backgroundRepeat">
+                                        <option value="no-repeat">no-repeat</option>
+                                        <option value="repeat">repeat</option>
+                                        <option value="repeat-x">repeat-x</option>
+                                        <option value="repeat-y">repeat-y</option>
+                                        <option value="round">round</option>
+                                        <option value="space">space</option>
+                                        <option value="unset">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundSize">Podklad (velikost)</label>
+                                </th>
+                                <td>
+                                    <select id="attributes-backgroundSize" name="backgroundSize">
+                                        <option value="auto">auto</option>
+                                        <option value="contain">contain</option>
+                                        <option value="cover">cover</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="round">round</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="revert">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundPositionX">Podklad (pozice X)</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-backgroundPositionX" name="backgroundPositionX">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-backgroundPositionY">Podklad (pozice Y)</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-backgroundPositionY" name="backgroundPositionY">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-width">Šířka</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-width" name="width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-marginLeft">Levý okraj</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-marginLeft" name="marginLeft">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-rotate">Rotace panelu</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-rotate" name="rotate">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-zIndex">Z-index</label>
+                                </th>
+                                <td>
+                                    <input id="attributes-zIndex" name="zIndex">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <form id="filters-panel">
+                    <h3 data-accordeon="table-filters-panel">Nastavení filtrů</h3>
+                    <table id="table-filters-panel">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="blur.active" id="filters-panel-blur">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-blur">blur</label>
+                                </th>
+                                <td>
+                                    <input name="blur.value" type="number" min="0" max="1000" data-postfix="px" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="brightness.active" id="filters-panel-brightness">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-brightness">brightness</label>
+                                </th>
+                                <td>
+                                    <input name="brightness.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="contrast.active" id="filters-panel-contrast">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-contrast">contrast</label>
+                                </th>
+                                <td>
+                                    <input name="contrast.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="drop-shadow.active" id="filters-panel-drop-shadow">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-drop-shadow">drop-shadow</label>
+                                </th>
+                                <td>
+                                    <input name="drop-shadow.value" placeholder="h-sh. v-sh. blur spread color">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="grayscale.active" id="filters-panel-grayscale">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-grayscale">grayscale</label>
+                                </th>
+                                <td>
+                                    <input name="grayscale.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="hue-rotate.active" id="filters-panel-hue-rotate">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-hue-rotate">hue-rotate</label>
+                                </th>
+                                <td>
+                                    <input name="hue-rotate.value" type="number" min="0" max="360" data-postfix="deg" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="invert.active" id="filters-panel-invert">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-invert">invert</label>
+                                </th>
+                                <td>
+                                    <input name="invert.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="opacity.active" id="filters-panel-opacity">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-opacity">opacity</label>
+                                </th>
+                                <td>
+                                    <input name="opacity.value" type="number" min="0" max="100" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="saturate.active" id="filters-panel-saturate">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-saturate">saturate</label>
+                                </th>
+                                <td>
+                                    <input name="saturate.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="sepia.active" id="filters-panel-sepia">
+                                </td>
+                                <th>
+                                    <label for="filters-panel-sepia">sepia</label>
+                                </th>
+                                <td>
+                                    <input name="sepia.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>                
+            </div>
+            
+            <div id="global">
+                <h2>Globální nastavení</h2>
+                <form id="filters">
+                    <h3 data-accordeon="table-filters-global">Filtry</h3>
+                    <table id="table-filters-global">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="blur.active" id="filters-blur">
+                                </td>
+                                <th>
+                                    <label for="filters-blur">blur</label>
+                                </th>
+                                <td>
+                                    <input name="blur.value" type="number" min="0" max="1000" data-postfix="px" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="brightness.active" id="filters-brightness">
+                                </td>
+                                <th>
+                                    <label for="filters-brightness">brightness</label>
+                                </th>
+                                <td>
+                                    <input name="brightness.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="contrast.active" id="filters-contrast">
+                                </td>
+                                <th>
+                                    <label for="filters-contrast">contrast</label>
+                                </th>
+                                <td>
+                                    <input name="contrast.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="drop-shadow.active" id="filters-drop-shadow">
+                                </td>
+                                <th>
+                                    <label for="filters-drop-shadow">drop-shadow</label>
+                                </th>
+                                <td>
+                                    <input name="drop-shadow.value" placeholder="h-sh. v-sh. blur spread color">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="grayscale.active" id="filters-grayscale">
+                                </td>
+                                <th>
+                                    <label for="filters-grayscale">grayscale</label>
+                                </th>
+                                <td>
+                                    <input name="grayscale.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="hue-rotate.active" id="filters-hue-rotate">
+                                </td>
+                                <th>
+                                    <label for="filters-hue-rotate">hue-rotate</label>
+                                </th>
+                                <td>
+                                    <input name="hue-rotate.value" type="number" min="0" max="360" data-postfix="deg" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="invert.active" id="filters-invert">
+                                </td>
+                                <th>
+                                    <label for="filters-invert">invert</label>
+                                </th>
+                                <td>
+                                    <input name="invert.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="opacity.active" id="filters-opacity">
+                                </td>
+                                <th>
+                                    <label for="filters-opacity">opacity</label>
+                                </th>
+                                <td>
+                                    <input name="opacity.value" type="number" min="0" max="100" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="saturate.active" id="filters-saturate">
+                                </td>
+                                <th>
+                                    <label for="filters-saturate">saturate</label>
+                                </th>
+                                <td>
+                                    <input name="saturate.value" type="number" min="0" max="1000" data-postfix="%" value="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="sepia.active" id="filters-sepia">
+                                </td>
+                                <th>
+                                    <label for="filters-sepia">sepia</label>
+                                </th>
+                                <td>
+                                    <input name="sepia.value" type="number" min="0" max="100" data-postfix="%" value="0">
+                                </td>
+                            </tr>
+                            <!-- 
+                                Parametr URL
+                                https://www.w3schools.com/cssref/css3_pr_filter.asp
+                            -->
+                        </tbody>
+                    </table>
+                </form>
+                
+                <form id="background">
+                    <h3 data-accordeon="table-background-global">Podklad</h3>
+                    <table id="table-background-global">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundColor">Podkladová barva</label>
+                                </th>
+                                <td>
+                                    <input id="background-backgroundColor" name="backgroundColor">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundImage">Podklad (obrázek)</label>
+                                </th>
+                                <td>
+                                    <input id="background-backgroundImage" name="backgroundImage">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <button id="background-button">Načíst obrázek</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundRepeat">Podklad (opakování)</label>
+                                </th>
+                                <td>
+                                    <select id="background-backgroundRepeat" name="backgroundRepeat">
+                                        <option value="no-repeat">no-repeat</option>
+                                        <option value="repeat">repeat</option>
+                                        <option value="repeat-x">repeat-x</option>
+                                        <option value="repeat-y">repeat-y</option>
+                                        <option value="round">round</option>
+                                        <option value="space">space</option>
+                                        <option value="unset">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundSize">Podklad (velikost)</label>
+                                </th>
+                                <td>
+                                    <select id="background-backgroundSize" name="backgroundSize">
+                                        <option value="auto">auto</option>
+                                        <option value="contain">contain</option>
+                                        <option value="cover">cover</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="round">round</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="revert">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundPositionX">Podklad (pozice X)</label>
+                                </th>
+                                <td>
+                                    <input id="background-backgroundPositionX" name="backgroundPositionX">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="background-backgroundPositionY">Podklad (pozice Y)</label>
+                                </th>
+                                <td>
+                                    <input id="background-backgroundPositionY" name="backgroundPositionY">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                
+                <form id="size">
+                    <h3 data-accordeon="table-size-global">Velikost obálky</h3>
+                    <table id="table-size-global">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="size-size">Velikost obálky</label>
+                                </th>
+                                <td>
+                                    <select id="size-size" name="size">
+                                        <option value="500×800">Preview (500×800)</option>
+                                        <option value="625×1000">Hobby (625×1000)</option>
+                                        <option value="1000×1600" selected>Minimal (1000×1600)</option>
+                                        <option value="1600×2560">Profi (1600×2560)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                
+                <form id="fonts">
+                    <h3 data-accordeon="table-fonts-global">Přidat písmo</h3>
+                    <table id="table-fonts-global">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="fonts-name">Font name</label>
+                                </th>
+                                <td>
+                                    <input id="fonts-name" name="name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="fonts-url">Font URL</label>
+                                </th>
+                                <td>
+                                    <input id="fonts-url" name="url">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                </th>
+                                <td>
+                                    <input type="button" name="add" value="Přidat">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+                <form id="panel-add">
+                    <h3 data-accordeon="table-panel-global">Přidat panel</h3>
+                    <table id="table-panel-global">
+                        <tr>
+                            <td colspan="2">
+                                <button id="panel-add-button">Přidat panel</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+            
+        </div>
+        
+        <div class="clear"></div>
+        <div id="json-wrapper">
+            <button id="jsonShow">zobrazit zdrojový kód</button>
+            <button id="jsonApply">použít nastavení</button>
+            <button id="jsonDownload">download nastavení</button>
+            <button id="jsonUpload">upload nastavení</button>
+            <div class="clear"></div>
+            <textarea id="jsonText"></textarea>
+        </div>
+
+        <div id="panel-source" class="wrapper" style="background: #c0c0c0; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1; display: none;">
+            <div class="text" style="font-family: serif; font-size: 20px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
+                <span>Nový panel</span>
+            </div>
+        </div>
+        
+        <script>
+var panelActive;
+
+var frontpage = document.getElementById("frontpage");
+
+var scaleManager = new ScaleManager(document.getElementById("size-size"), frontpage);
+
+// Upload, download, edit as JSON:
+new StyleManager(
+    frontpage,
+    document.getElementById("jsonText"),
+    document.getElementById("jsonShow"),
+    document.getElementById("jsonApply"),
+    document.getElementById("jsonDownload"),
+    document.getElementById("jsonUpload"),
+);
+
+// Load fonts:
+var fontManager = new FontManager({
+    "Amita": "Amita",
+    "Bangers": "Bangers",
+    "Berkshire+Swash": "Berkshire Swash",
+    "Black+Ops+One": "Black Ops One",
+    "Bungee": "Bungee",
+    "Cinzel": "Cinzel",
+    "Concert+One": "Concert One",
+    "Courgette": "Courgette",
+    "Fredericka+the+Great": "Fredericka the Great",
+    "Libre+Baskerville": "Libre Baskerville",
+    "Lobster": "Lobster",
+    "Mitr": "Mitr",
+    "Neuton": "Neuton",
+    "Nosifer": "Nosifer",
+    "Oleo+Script": "Oleo Script",
+    "Pangolin": "Pangolin",
+    "Roboto": "Roboto",
+    "Rye": "Rye",
+    "Sigmar+One": "Sigmar One",
+    "Sriracha": "Sriracha",    
+    "STIX+Two+Math": "STIX Two Math",
+    "Vollkorn:wght@500": "Vollkorn"
+});
+fontManager.createOptions(document.getElementById("attributes-fontFamily"));
+fontManager.loadStyle();
+
+// Manage frontpage scale:
+scaleManager.setSize();
+
+function eventDownloadClicked (e) {
+    e.preventDefault();
+    var scale = scaleManager.getScale();
+    scaleManager.setScale("scale(1.0)");
+    document.getElementById("frontpage").style.overflow = "hidden";
+    var splash = document.getElementById("splash");
+    splash.style.display = "block";
+    domtoimage
+        .toJpeg(
+            document.getElementById("frontpage"),
+            {
+                quality: 0.95
+            }
+        )
+        .then(function (dataUrl) {
+            scaleManager.setScale(scale);
+            splash.style.display = "none";
+            var link = document.createElement('a');
+            link.download = 'my-image-name.jpeg';
+            link.href = dataUrl;
+            link.click();
+            //document.removeChild(link);
+        })
+        .catch(function (error) {
+            scaleManager.setScale(scale);
+            splash.style.display = "none";
+            alert("ERROR\n" + error);
+        });
+}
+
+
+var backgroundSubject;
+var fr = new FileReader;
+fr.addEventListener(
+    "load",
+    e => {
+        backgroundSubject.style.backgroundImage = "url('" + e.target.result + "')";
+        if (backgroundSubject.id === "frontpage") {
+            document.querySelector("#background input[name='backgroundImage']").value = "[IMAGE]";
+        }
+    }
+);
+
+var inputImage = document.createElement("input");
+inputImage.type = "file";
+inputImage.accept = "image/*";
+inputImage.style.display = "none";
+inputImage.addEventListener(
+    "change",
+    e => {
+        e.preventDefault();
+        if (e.target.files.length < 1) {
+            return;
+        }
+        if (!e.target.files[0].type.startsWith("image/")) {
+            return;
+        }
+        fr.readAsDataURL(e.target.files[0]);
+    }
+);
+
+function eventImageButtonClicked (e) {
+    e.preventDefault();
+    backgroundSubject = (
+        e.currentTarget.id === "background-button" || !panelActive
+        ? document.getElementById("frontpage")
+        : panelActive
+    );
+    inputImage.click();
+}
+
+function fontAdd (e) {
+    e.preventDefault();
+    var form = e.currentTarget.closest("form"),
+        fontName = form.querySelector("input[name='name']").value,
+        fontUrl = form.querySelector("input[name='url']").value
+
+    // Include style element with font to HTML document:
+    var el = document.createElement("link");
+    el.href = fontUrl;
+    el.rel = "stylesheet";
+    document.head.appendChild(el);
+    
+    // Insert font to select:
+    var o = document.createElement("option");
+    o.value = fontName;
+    o.innerText = fontName;
+    document.querySelector("#form form select[name='fontFamily']").appendChild(o);
+
+    // Clear form:
+    form.querySelector("input[name='name']").value = "";
+    form.querySelector("input[name='url']").value = "";
+}
+    
+function getValue (el) {
+    switch (el.tagName) {
+        case "SELECT":
+            var o = el.querySelector("option:checked");
+            if (!o) {
+                return null;
+            }
+            return (
+                o.hasAttribute("value")
+                ? o.getAttribute("value")
+                : o.innerText
+            );
+            break;
+        default:
+            return el.value;
+    }
+}
+
+function attr2form (el, form) {
+    var data = new FormData(form);
+    for (var a of data.entries()) {
+        
+        var inp = form.querySelector("*[name='" + a[0] + "']");
+        if (inp.getAttribute("data-skip") == "true") {
+            continue;
+        }
+        var elActive = (
+            inp.hasAttribute("data-target")
+            ? el.querySelector(inp.getAttribute("data-target"))
+            : el
+        );
+        var attr = (inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : a[0]);
+        switch (inp.getAttribute("data-method") ?? "style") {
+            case "text":
+                inp.value = elActive.innerText;
+                break;
+            case "html":
+                inp.value = elActive.innerHTML;
+                break;
+            case "style":
+            default:
+                inp.value = (
+                    elActive.style[attr].startsWith("url(\"data:image")
+                    ? "[IMAGE]"
+                    : elActive.style[attr]
+                );
+                break;
+        }
+        inp.dispatchEvent(new Event("update"));
+    }
+}
+
+function input2attr (inp, el) {
+    if (inp.hasAttribute("data-target")) {
+        el = el.querySelector(inp.getAttribute("data-target"));
+    }
+    switch (inp.getAttribute("data-method") ?? "style") {
+        case "text":
+            el.innerText = getValue(inp);
+            break;
+        case "html":
+            el.innerHTML = getValue(inp);
+            break;
+        case "style":
+        default:
+            el.style[(inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : inp.name)] = getValue(inp);
+            break;
+    }
+}
+
+function form2attr (form, el) {
+    var data = new FormData(form);
+    for (var a of data.entries()) {
+        var inp = form.querySelector("*[name='" + a[0] + "']");
+        if (inp.getAttribute("data-skip") == "true") {
+            continue;
+        }
+        input2attr(inp, el);
+    }
+}
+
+function filter2attr (form, target) {
+    var data = new FormData(form);
+    var filter = [];
+    var inp;
+    var name;
+    for (var el of data.keys()) {
+        if (!el.match(/\.active$/)) {
+            continue;
+        }
+        name = el.replace(/\.active$/, "");
+        inp = form.querySelector("[name='" + name + ".value']");
+        if (!inp.value) {
+            continue;
+        }
+        filter.push(name + "(" + inp.value + (inp.getAttribute("data-postfix") ?? "") + ")");
+    }
+    if (!filter.length) {
+        filter.push("none");
+    }
+    target.style.filter = filter.join(" ");
+}
+
+function attr2filter (el, form) {
+    form.reset();
+    var filter = el.style.filter;
+    if (!filter || filter === "none") {
+        return;
+    }
+    for (var i of filter.split(" ")) {
+        var eff = i.match(/[a-z]+/)[0];
+        var val = i.match(/\-?[0-9\.]+/)[0];
+        if (val) {
+            form.querySelector("[name='" + eff + ".active']").checked = true;
+            form.querySelector("[name='" + eff + ".value']").value = val;
+        }
+    }
+}
+
+function eventPanelSelect (e) {
+    e.stopPropagation();
+    panelActive = e.target.closest("div.wrapper");
+    attr2form(panelActive, document.querySelector("#form form"));
+    attr2filter(panelActive, document.getElementById("filters-panel"));
+    panelActive, document.querySelector("#form").style.display = "inline-block";
+    document.getElementById("pointer").style.top = (panelActive.offsetTop * scaleManager.scale) + 2 + "px";
+}
+
+function eventPanelUpdate (e) {
+    if (!panelActive) {
+        return;
+    }
+    input2attr(e.target, panelActive);
+}
+
+function eventBackgroundUpdate (e) {
+    input2attr(e.target, document.getElementById("frontpage"));
+}
+
+function eventPanelAddButtonClicked (e) {
+    e.preventDefault();
+    document.getElementById("frontpage").appendChild(
+        document.getElementById("panel-source").cloneNode(true)
+    ).style.display = '';
+}
+
+// Select panel:
+document.getElementById("frontpage").addEventListener("click", eventPanelSelect);
+// Panel change attribute:
+document.querySelector("#form form").addEventListener("change", eventPanelUpdate);
+// Global change background attribute:
+document.getElementById("background").addEventListener("change", eventBackgroundUpdate);
+// Load background attributes from image:
+attr2form(document.getElementById("frontpage"), document.getElementById("background"));
+// Add font:
+document.querySelector("#fonts input[name='add']").addEventListener("click", fontAdd);
+// Init "size" attribute inputs:
+for (var e of document.querySelectorAll("#form [data-type='size']")) {
+    new SizeElement(e);
+}
+// Panel background image:
+document.getElementById("image-button").addEventListener("click", eventImageButtonClicked);
+// Global background image: 
+document.getElementById("background-button").addEventListener("click", eventImageButtonClicked);
+// Image download:
+document.getElementById("download").addEventListener("click", eventDownloadClicked);
+// Add panel:
+document.getElementById("panel-add-button").addEventListener("click", eventPanelAddButtonClicked);
+// Global filter settings:
+document.getElementById("filters").addEventListener(
+    "change",
+    function (e) {
+        if (e.target.type !== "checkbox") {
+            e.target.closest("tr").querySelector("input[type='checkbox']").checked = true;
+        }
+        var form = e.currentTarget;
+        filter2attr(form, document.getElementById("frontpage"));
+    }
+);
+// Panel filter settings:
+document.getElementById("filters-panel").addEventListener(
+    "change",
+    function (e) {
+        if (!panelActive) {
+            return;
+        }
+        if (e.target.type !== "checkbox") {
+            e.target.closest("tr").querySelector("input[type='checkbox']").checked = true;
+        }
+        var form = e.currentTarget;
+        filter2attr(form, panelActive);
+    }
+);
+
+
+class Accordion {
+    constructor (parent) {
+        for (var title of parent.querySelectorAll("h3")) {
+            document.getElementById(title.getAttribute("data-accordeon")).style.display = "none";
+            title.addEventListener(
+                "click",
+                function (e) {
+                    var body = document.getElementById(e.currentTarget.getAttribute("data-accordeon"));
+                    var display = (body.style.display === "none" ? "block" : "none");
+                    for (var el of parent.querySelectorAll("h3")) {
+                        document.getElementById(el.getAttribute("data-accordeon")).style.display = "none";
+                    }
+                    body.style.display = display;
+                }
+            );
+            title.style.cursor = "pointer";
+        }
+    }
+}
+
+new Accordion(document.getElementById("form"));
+document.querySelector("#form h3").dispatchEvent(new Event("click"));
+new Accordion(document.getElementById("global"));
+document.querySelector("#global h3").dispatchEvent(new Event("click"));
+
+        </script>
+    </body>
+</html>

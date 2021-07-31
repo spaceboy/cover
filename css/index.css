@@ -1,0 +1,158 @@
+html {
+    height: 100%;
+}
+body {
+    background: #eee;
+    font-family: sans-serif;
+    font-size: 13px;
+    height: 100%;
+}
+div {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+h1, h2, h3 {
+    font-family: sans-serif;
+    margin: 0 0 .5em 0;
+}
+form table {
+    background: #f8f8f8;
+    margin: 0 0 1em 0;
+    padding: 1em;
+    width: 100%;
+}
+form table th {
+    text-align: left;
+}
+form table td {
+    text-align: right;
+}
+form table th label {
+    font-weight: normal;
+}
+form input {
+    width: 15em;
+}
+form input[type="checkbox"] {
+    width: 1.2em;
+}
+form input[type="submit"], form input[type="button"], form button {
+    width: auto;
+}
+
+form select {
+    width: 15.6em;
+}
+form textarea {
+    height: 4em;
+    width: 16.6em;
+}
+form .size-wrapper > input {
+    width: 6em;
+}
+form .size-wrapper > select {
+    width: 9em;
+}
+
+#form {
+    display: none;
+    float: left;
+    margin-right: 1em;
+    width: 420px;
+}
+
+div.page {
+    display: inline-block;
+}
+
+#header {
+    padding: 0 .2em 1em 25px;
+}
+
+#fp-wrapper {
+    background-image: linear-gradient(90deg, transparent 26px, #000000 26px);
+    border: none;
+    float: left;
+    height: 800px;
+    margin: 0 1em 0 0;
+    overflow: hidden;
+    padding: 2px 2px 2px 14px;
+    position: relative;
+    text-align: right;
+    width: 514px;
+}
+
+#frontpage {
+    background: #fff;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    float: right;
+    height: 800px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transform: scale(1.0);
+    transform-origin: top right;
+    width: 500px;
+    -moz-transform: scale(1.0);
+}
+#frontpage div.wrapper {
+    display: table;
+    flex-grow: 1;
+    overflow: hidden;
+    text-align: center;
+}
+#frontpage div.text {
+    background: transparent;
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+}
+
+#pointer {
+    background: orangered;
+    border-radius: 50%;
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: -200px;
+    width: 20px;
+}
+
+#global {
+    float: left;
+    width: 420px;
+}
+
+#download {
+    background: green;
+    border: none;
+    border-radius: .25em;
+    box-shadow: .125em .125em .25em rgba(0, 0, 0, .25);
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    padding: .5em 1em;
+    text-shadow: -1px -1px 2px rgba(0, 0, 0, .5);
+}
+#download:hover {
+    box-shadow: .125em .125em .25em rgba(0, 0, 0, .5);
+}
+
+#json-wrapper {
+    padding: 2em 0 0 2em;
+}
+#jsonText {
+    height: 15em;
+    width: 928px;
+}
+
+.clear {
+    clear: both;
+}

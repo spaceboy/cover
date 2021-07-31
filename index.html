@@ -4,28 +4,21 @@
         <meta charset="utf-8">
         <title>Cover generator</title>
         <link rel="shortcut icon" href="favicon.ico?v=1">
-
         <link rel="stylesheet" type="text/css" href="css/index.css?v=1">
-<style>
-</style>
-        
         <script src="js/dom-to-image.js"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
         <script src="js/StyleManager.js"></script>
         <script src="js/FontManager.js"></script>
+        <script src="js/Accordeon.js"></script>
     </head>
     <body>
-        
         <div id="splash" style="background: #ccc; cursor: wait; display: none; height: 100%; position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;"></div>
-        
         <div class="page">
-
             <div id="header">
                 <button id="download">Download</button>
                 <h1>Generátor <span>typografické</span> obálky</h1>
             </div>
-            
             <div id="fp-wrapper">
                 <div id="frontpage">
                     <div class="wrapper" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
@@ -46,7 +39,6 @@
                 </div>
                 <div id="pointer"></div>
             </div>
-
             <div id="form">
                 <h2>Aktivní panel</h2>
                 <form id="attributes">
@@ -1014,7 +1006,9 @@ function eventPanelSelect (e) {
     attr2form(panelActive, document.querySelector("#form form"));
     attr2filter(panelActive, document.getElementById("filters-panel"));
     panelActive, document.querySelector("#form").style.display = "inline-block";
-    document.getElementById("pointer").style.top = (panelActive.offsetTop * scaleManager.scale) + 2 + "px";
+    var pointerStyle = document.getElementById("pointer").style;
+    pointerStyle.top = (panelActive.offsetTop * scaleManager.scale) + 2 + "px";
+    pointerStyle.height = (panelActive.offsetHeight * scaleManager.scale) + 2 + "px";
 }
 
 function eventPanelUpdate (e) {
@@ -1082,31 +1076,10 @@ document.getElementById("filters-panel").addEventListener(
         filter2attr(form, panelActive);
     }
 );
-
-
-class Accordion {
-    constructor (parent) {
-        for (var title of parent.querySelectorAll("h3")) {
-            document.getElementById(title.getAttribute("data-accordeon")).style.display = "none";
-            title.addEventListener(
-                "click",
-                function (e) {
-                    var body = document.getElementById(e.currentTarget.getAttribute("data-accordeon"));
-                    var display = (body.style.display === "none" ? "block" : "none");
-                    for (var el of parent.querySelectorAll("h3")) {
-                        document.getElementById(el.getAttribute("data-accordeon")).style.display = "none";
-                    }
-                    body.style.display = display;
-                }
-            );
-            title.style.cursor = "pointer";
-        }
-    }
-}
-
-new Accordion(document.getElementById("form"));
+// Start accordeons:
+new Accordeon(document.getElementById("form"));
 document.querySelector("#form h3").dispatchEvent(new Event("click"));
-new Accordion(document.getElementById("global"));
+new Accordeon(document.getElementById("global"));
 document.querySelector("#global h3").dispatchEvent(new Event("click"));
 
         </script>

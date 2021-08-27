@@ -2,15 +2,13 @@ class Panel {
     // Select panel by clicking on panel:
     static selectByClick (e) {
         e.stopPropagation();
-        panelActive = e.target.closest("div.wrapper");
-        Panel.selectPanel();
+        Panel.selectPanel(e.target.closest("div.wrapper"));
     }
 
     // Select panel by SELECT
     static selectBySelector (e) {
         e.stopPropagation();
-        panelActive = document.querySelector("#frontpage div.wrapper[data-title='" + e.currentTarget.value + "']");
-        Panel.selectPanel();
+        Panel.selectPanel(document.querySelector("#frontpage div.wrapper[data-title='" + e.currentTarget.value + "']"));
     }
 
     // Create new panel:
@@ -30,7 +28,8 @@ class Panel {
     }
 
     // Select panel:
-    static selectPanel () {
+    static selectPanel (panel) {
+        panelActive = panel;
         Transfer.attr2form(panelActive, document.getElementById("attributes"));
         Transfer.attr2filter(panelActive, document.getElementById("filters-panel"));
         var pointerStyle = document.getElementById("pointer").style;

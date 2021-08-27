@@ -24,7 +24,9 @@ class StyleManager {
         form.reset();
         for (var el in data) {
             var inp = form.querySelector("*[name='" + el + "']");
-            inp.value = data[el];
+            if (inp) {
+                inp.value = data[el];
+            }
         }
         Transfer.form2attr(form, target);
         if (data["backgroundImage"].startsWith("url(\"data:image")) {
@@ -75,11 +77,18 @@ class StyleManager {
         return json;
     }
 
+    // Copy style to JSON box
     getStyle () {
         var panels = [];
+        var panelActiveOriginal = panelActive;
         for (var el of document.querySelectorAll("#frontpage > div.wrapper")) {
-            panels.push(this.attr2json(el, document.getElementById("attributes")));
+            Panel.selectPanel(el);
+            var panel = this.attr2json(el, document.getElementById("attributes"));
+            panel["panelTitle"] = el.getAttribute("data-title");
+            panel["panelFilters"] = this.filter2json(document.getElementById("filters-panel"))
+            panels.push(panel);
         }
+        Panel.selectPanel(panelActiveOriginal);
         var style = {
             "panels": panels,
             "background": this.attr2json(frontpage, document.getElementById("background")),
@@ -88,18 +97,20 @@ class StyleManager {
         this.textarea.value = JSON.stringify(style, null, 4);
     }
 
+    loadFormFilter (data, form, target) {
+        form.reset();
+        for (var el in data) {
+            var inp = form.querySelector("*[name='" + el + ".value']");
+            inp.value = data[el];
+            form.querySelector("*[name='" + el + ".active']").checked = true;
+        }
+        Transfer.filter2attr(form, target);
+    }
+
+    // Copy style from JSON box
     applyStyle () {
         var data = JSON.parse(this.textarea.value);
         var source = document.getElementById("panel-source");
-        var loadFormFilter = function (data, form, target) {
-            form.reset();
-            for (var el in data) {
-                var inp = form.querySelector("*[name='" + el + ".value']");
-                inp.value = data[el];
-                form.querySelector("*[name='" + el + ".active']").checked = true;
-            }
-            Transfer.filter2attr(form, frontpage);
-        }
 
         // Load panels:
         for (var el of this.frontpage.querySelectorAll("div.wrapper")) {
@@ -111,10 +122,21 @@ class StyleManager {
             panelActive.style.display = '';
             panelActive.setAttribute("id", "panel-" + i);
             this.#loadFormElement(data["panels"][i], form, panelActive);
+            if (data["panels"][i].hasOwnProperty("panelFilters")) {
+                this.loadFormFilter(data["panels"][i]["panelFilters"], document.getElementById("filters-panel"), panelActive);
+            }
+            panelActive.setAttribute(
+                "data-title",
+                (
+                    data["panels"][i].hasOwnProperty("panelTitle")
+                    ? data["panels"][i]["panelTitle"]
+                    : "Panel " + (i + 1)
+                )
+            )
         }
 
         // Load filters:
-        loadFormFilter(data["filters"], document.getElementById("filters"), frontpage);
+        this.loadFormFilter(data["filters"], document.getElementById("filters"), frontpage);
 
         // Load background:
         this.#loadFormElement(data["background"], document.getElementById("background"), frontpage);

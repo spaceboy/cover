@@ -1,14 +1,25 @@
 class Accordeon {
     constructor (parent) {
         for (var title of parent.querySelectorAll("h3")) {
-            document.getElementById(title.getAttribute("data-accordeon")).style.display = "none";
+            var id = title.getAttribute("data-accordeon");
+            if (!id) {
+                continue;
+            }
+            var el = document.getElementById(id);
+            if (!el) {
+                continue;
+            }
+            el.style.display = "none";
             title.addEventListener(
                 "click",
                 function (e) {
                     var body = document.getElementById(e.currentTarget.getAttribute("data-accordeon"));
                     var display = (body.style.display === "none" ? "block" : "none");
                     for (var el of parent.querySelectorAll("h3")) {
-                        document.getElementById(el.getAttribute("data-accordeon")).style.display = "none";
+                        var elem = document.getElementById(el.getAttribute("data-accordeon"));
+                        if (elem) {
+                            elem.style.display = "none";
+                        }
                     }
                     body.style.display = display;
                 }

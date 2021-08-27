@@ -56,7 +56,7 @@ form .size-wrapper > select {
 }
 
 #form {
-    display: none;
+    display: inline-block;
     float: left;
     margin-right: 1em;
     width: 420px;

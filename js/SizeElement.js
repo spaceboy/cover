@@ -24,11 +24,11 @@ class SizeElement {
             name = el.name;
         wrapper.setAttribute("class", "size-wrapper");
         el.after(wrapper);
-        
+
         var elNew = wrapper.appendChild(el.cloneNode(true));
         elNew.style.display = "none";
         parent.removeChild(el);
-        elNew.addEventListener("change", eventPanelUpdate);
+        elNew.addEventListener("change", Panel.update);
         elNew.addEventListener(
             "update",
             function (e) {
@@ -38,7 +38,7 @@ class SizeElement {
                 parent.querySelector("*[name$='.unit']").value = val.replace(/[\.0-9]/g, '');
             }
         );
-    
+
         var inp = document.createElement("input");
         inp.name = name + ".size";
         inp.setAttribute("data-skip", "true");
@@ -50,7 +50,7 @@ class SizeElement {
                 elNew.dispatchEvent(new Event("change"));
             }
         );
-        
+
         var unit = document.createElement("select");
         unit.name = elNew.name + ".unit";
         unit.setAttribute("data-skip", "true");

@@ -1,12 +1,12 @@
 class StyleManager {
-    
+
     frontpage;
     textarea;
     buttonShow;
     buttonApply;
     buttonDownload;
     buttonUpload;
-    
+
     constructor (frontpage, textarea, buttonShow, buttonApply, buttonDownload, buttonUpload) {
         this.frontpage = frontpage;
         this.textarea = textarea;
@@ -19,27 +19,16 @@ class StyleManager {
         buttonUpload.onclick = this.uploadJson.bind(this);
         this.buttonUpload = buttonUpload;
     }
-    
+
     #loadFormElement (data, form, target) {
         form.reset();
         for (var el in data) {
             var inp = form.querySelector("*[name='" + el + "']");
             inp.value = data[el];
         }
-        this.form2attr(form, target);
+        Transfer.form2attr(form, target);
         if (data["backgroundImage"].startsWith("url(\"data:image")) {
             form.querySelector("input[name='backgroundImage']").value = "[IMAGE]";
-        }
-    }
-
-    form2attr (form, el) {
-        var data = new FormData(form);
-        for (var a of data.entries()) {
-            var inp = form.querySelector("*[name='" + a[0] + "']");
-            if (inp.getAttribute("data-skip") == "true") {
-                continue;
-            }
-            input2attr(inp, el);
         }
     }
 
@@ -72,7 +61,7 @@ class StyleManager {
         }
         return json;
     }
-    
+
     filter2json (form) {
         var data = new FormData(form);
         var json = {};
@@ -109,9 +98,9 @@ class StyleManager {
                 inp.value = data[el];
                 form.querySelector("*[name='" + el + ".active']").checked = true;
             }
-            filter2attr(form, frontpage);
+            Transfer.filter2attr(form, frontpage);
         }
-        
+
         // Load panels:
         for (var el of this.frontpage.querySelectorAll("div.wrapper")) {
             this.frontpage.removeChild(el);
@@ -123,7 +112,7 @@ class StyleManager {
             panelActive.setAttribute("id", "panel-" + i);
             this.#loadFormElement(data["panels"][i], form, panelActive);
         }
-        
+
         // Load filters:
         loadFormFilter(data["filters"], document.getElementById("filters"), frontpage);
 

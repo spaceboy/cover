@@ -6,11 +6,14 @@
         <link rel="shortcut icon" href="favicon.ico?v=1">
         <link rel="stylesheet" type="text/css" href="css/index.css?v=1">
         <script src="js/dom-to-image.js"></script>
+        <script src="js/Transfer.js"></script>
+        <script src="js/Panel.js"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
         <script src="js/StyleManager.js"></script>
         <script src="js/FontManager.js"></script>
         <script src="js/Accordeon.js"></script>
+        <script src="js/Events.js"></script>
     </head>
     <body>
         <div id="splash" style="background: #ccc; cursor: wait; display: none; height: 100%; position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;"></div>
@@ -21,17 +24,17 @@
             </div>
             <div id="fp-wrapper">
                 <div id="frontpage">
-                    <div class="wrapper" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
+                    <div class="wrapper" data-title="Panel 1" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
                         <div class="text" style="font-family: serif; font-size: 30px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span>Jméno Autora</span>
                         </div>
                     </div>
-                    <div class="wrapper" style="background: transparent; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 1; z-index: 1;">
+                    <div class="wrapper" data-title="Panel 2" style="background: transparent; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 1; z-index: 1;">
                         <div class="text" style="font-family: serif; font-size: 15px; font-style: normal; font-weight: normal; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span>obrázek/popis</span>
                         </div>
                     </div>
-                    <div class="wrapper" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
+                    <div class="wrapper" data-title="Panel 3" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
                         <div class="text" style="font-family: serif; font-size: 35px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span>Titul publikace</span>
                         </div>
@@ -41,13 +44,44 @@
             </div>
             <div id="form">
                 <h2>Aktivní panel</h2>
-                <form id="attributes">
+                <form id="panel-select">
+                    <h3>Panel</h3>
+                    <table id="table-panel-select">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="panel-select-panel">Vybrat panel</label>
+                                </th>
+                                <td>
+                                    <select name="panel" id="panel-select-panel" data-skip="true">
+                                        <option value="Panel 1">Panel 1</option>
+                                        <option value="Panel 2">Panel 2</option>
+                                        <option value="Panel 3">Panel 3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="panel-add">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label>Přidat panel</label>
+                                </th>
+                                <td>
+                                    <button id="panel-add-panel" data-skip="true">Přidat panel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <form id="attributes" class="attributes">
                     <h3 data-accordeon="table-attributes-text">Nastavení textu</h3>
                     <table id="table-attributes-text">
                         <tbody>
                             <tr>
                                 <td colspan="2">
-                                    
+
                                 </td>
                             </tr>
                             <tr>
@@ -334,7 +368,7 @@
                         </tbody>
                     </table>
                 </form>
-                <form id="filters-panel">
+                <form id="filters-panel" class="attributes">
                     <h3 data-accordeon="table-filters-panel">Nastavení filtrů</h3>
                     <table id="table-filters-panel">
                         <tbody>
@@ -450,9 +484,9 @@
                             </tr>
                         </tbody>
                     </table>
-                </form>                
+                </form>
             </div>
-            
+
             <div id="global">
                 <h2>Globální nastavení</h2>
                 <form id="filters">
@@ -569,14 +603,14 @@
                                     <input name="sepia.value" type="number" min="0" max="100" data-postfix="%" value="0">
                                 </td>
                             </tr>
-                            <!-- 
+                            <!--
                                 Parametr URL
                                 https://www.w3schools.com/cssref/css3_pr_filter.asp
                             -->
                         </tbody>
                     </table>
                 </form>
-                
+
                 <form id="background">
                     <h3 data-accordeon="table-background-global">Podklad</h3>
                     <table id="table-background-global">
@@ -655,7 +689,7 @@
                         </tbody>
                     </table>
                 </form>
-                
+
                 <form id="size">
                     <h3 data-accordeon="table-size-global">Velikost obálky</h3>
                     <table id="table-size-global">
@@ -676,7 +710,7 @@
                         </tbody>
                     </table>
                 </form>
-                
+
                 <form id="fonts">
                     <h3 data-accordeon="table-fonts-global">Přidat písmo</h3>
                     <table id="table-fonts-global">
@@ -707,22 +741,10 @@
                         </tbody>
                     </table>
                 </form>
-
-                <form id="panel-add">
-                    <h3 data-accordeon="table-panel-global">Přidat panel</h3>
-                    <table id="table-panel-global">
-                        <tr>
-                            <td colspan="2">
-                                <button id="panel-add-button">Přidat panel</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-
             </div>
-            
+
         </div>
-        
+
         <div class="clear"></div>
         <div id="json-wrapper">
             <button id="jsonShow">zobrazit zdrojový kód</button>
@@ -733,355 +755,12 @@
             <textarea id="jsonText"></textarea>
         </div>
 
-        <div id="panel-source" class="wrapper" style="background: #c0c0c0; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1; display: none;">
+        <div id="panel-source" class="wrapper" data-title="" style="background: #c0c0c0; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1; display: none;">
             <div class="text" style="font-family: serif; font-size: 20px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                 <span>Nový panel</span>
             </div>
         </div>
-        
-        <script>
-var panelActive;
 
-var frontpage = document.getElementById("frontpage");
-
-var scaleManager = new ScaleManager(document.getElementById("size-size"), frontpage);
-
-// Upload, download, edit as JSON:
-new StyleManager(
-    frontpage,
-    document.getElementById("jsonText"),
-    document.getElementById("jsonShow"),
-    document.getElementById("jsonApply"),
-    document.getElementById("jsonDownload"),
-    document.getElementById("jsonUpload"),
-);
-
-// Load fonts:
-var fontManager = new FontManager({
-    "Amita": "Amita",
-    "Bangers": "Bangers",
-    "Berkshire+Swash": "Berkshire Swash",
-    "Black+Ops+One": "Black Ops One",
-    "Bungee": "Bungee",
-    "Cinzel": "Cinzel",
-    "Concert+One": "Concert One",
-    "Courgette": "Courgette",
-    "Fredericka+the+Great": "Fredericka the Great",
-    "Libre+Baskerville": "Libre Baskerville",
-    "Lobster": "Lobster",
-    "Mitr": "Mitr",
-    "Neuton": "Neuton",
-    "Nosifer": "Nosifer",
-    "Oleo+Script": "Oleo Script",
-    "Pangolin": "Pangolin",
-    "Roboto": "Roboto",
-    "Rye": "Rye",
-    "Sigmar+One": "Sigmar One",
-    "Sriracha": "Sriracha",    
-    "STIX+Two+Math": "STIX Two Math",
-    "Vollkorn:wght@500": "Vollkorn"
-});
-fontManager.createOptions(document.getElementById("attributes-fontFamily"));
-fontManager.loadStyle();
-
-// Manage frontpage scale:
-scaleManager.setSize();
-
-function eventDownloadClicked (e) {
-    e.preventDefault();
-    var scale = scaleManager.getScale();
-    scaleManager.setScale("scale(1.0)");
-    document.getElementById("frontpage").style.overflow = "hidden";
-    var splash = document.getElementById("splash");
-    splash.style.display = "block";
-    domtoimage
-        .toJpeg(
-            document.getElementById("frontpage"),
-            {
-                quality: 0.95
-            }
-        )
-        .then(function (dataUrl) {
-            scaleManager.setScale(scale);
-            splash.style.display = "none";
-            var link = document.createElement('a');
-            link.download = 'my-image-name.jpeg';
-            link.href = dataUrl;
-            link.click();
-            //document.removeChild(link);
-        })
-        .catch(function (error) {
-            scaleManager.setScale(scale);
-            splash.style.display = "none";
-            alert("ERROR\n" + error);
-        });
-}
-
-
-var backgroundSubject;
-var fr = new FileReader;
-fr.addEventListener(
-    "load",
-    e => {
-        backgroundSubject.style.backgroundImage = "url('" + e.target.result + "')";
-        if (backgroundSubject.id === "frontpage") {
-            document.querySelector("#background input[name='backgroundImage']").value = "[IMAGE]";
-        }
-    }
-);
-
-var inputImage = document.createElement("input");
-inputImage.type = "file";
-inputImage.accept = "image/*";
-inputImage.style.display = "none";
-inputImage.addEventListener(
-    "change",
-    e => {
-        e.preventDefault();
-        if (e.target.files.length < 1) {
-            return;
-        }
-        if (!e.target.files[0].type.startsWith("image/")) {
-            return;
-        }
-        fr.readAsDataURL(e.target.files[0]);
-    }
-);
-
-function eventImageButtonClicked (e) {
-    e.preventDefault();
-    backgroundSubject = (
-        e.currentTarget.id === "background-button" || !panelActive
-        ? document.getElementById("frontpage")
-        : panelActive
-    );
-    inputImage.click();
-}
-
-function fontAdd (e) {
-    e.preventDefault();
-    var form = e.currentTarget.closest("form"),
-        fontName = form.querySelector("input[name='name']").value,
-        fontUrl = form.querySelector("input[name='url']").value
-
-    // Include style element with font to HTML document:
-    var el = document.createElement("link");
-    el.href = fontUrl;
-    el.rel = "stylesheet";
-    document.head.appendChild(el);
-    
-    // Insert font to select:
-    var o = document.createElement("option");
-    o.value = fontName;
-    o.innerText = fontName;
-    document.querySelector("#form form select[name='fontFamily']").appendChild(o);
-
-    // Clear form:
-    form.querySelector("input[name='name']").value = "";
-    form.querySelector("input[name='url']").value = "";
-}
-    
-function getValue (el) {
-    switch (el.tagName) {
-        case "SELECT":
-            var o = el.querySelector("option:checked");
-            if (!o) {
-                return null;
-            }
-            return (
-                o.hasAttribute("value")
-                ? o.getAttribute("value")
-                : o.innerText
-            );
-            break;
-        default:
-            return el.value;
-    }
-}
-
-function attr2form (el, form) {
-    var data = new FormData(form);
-    for (var a of data.entries()) {
-        
-        var inp = form.querySelector("*[name='" + a[0] + "']");
-        if (inp.getAttribute("data-skip") == "true") {
-            continue;
-        }
-        var elActive = (
-            inp.hasAttribute("data-target")
-            ? el.querySelector(inp.getAttribute("data-target"))
-            : el
-        );
-        var attr = (inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : a[0]);
-        switch (inp.getAttribute("data-method") ?? "style") {
-            case "text":
-                inp.value = elActive.innerText;
-                break;
-            case "html":
-                inp.value = elActive.innerHTML;
-                break;
-            case "style":
-            default:
-                inp.value = (
-                    elActive.style[attr].startsWith("url(\"data:image")
-                    ? "[IMAGE]"
-                    : elActive.style[attr]
-                );
-                break;
-        }
-        inp.dispatchEvent(new Event("update"));
-    }
-}
-
-function input2attr (inp, el) {
-    if (inp.hasAttribute("data-target")) {
-        el = el.querySelector(inp.getAttribute("data-target"));
-    }
-    switch (inp.getAttribute("data-method") ?? "style") {
-        case "text":
-            el.innerText = getValue(inp);
-            break;
-        case "html":
-            el.innerHTML = getValue(inp);
-            break;
-        case "style":
-        default:
-            el.style[(inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : inp.name)] = getValue(inp);
-            break;
-    }
-}
-
-function form2attr (form, el) {
-    var data = new FormData(form);
-    for (var a of data.entries()) {
-        var inp = form.querySelector("*[name='" + a[0] + "']");
-        if (inp.getAttribute("data-skip") == "true") {
-            continue;
-        }
-        input2attr(inp, el);
-    }
-}
-
-function filter2attr (form, target) {
-    var data = new FormData(form);
-    var filter = [];
-    var inp;
-    var name;
-    for (var el of data.keys()) {
-        if (!el.match(/\.active$/)) {
-            continue;
-        }
-        name = el.replace(/\.active$/, "");
-        inp = form.querySelector("[name='" + name + ".value']");
-        if (!inp.value) {
-            continue;
-        }
-        filter.push(name + "(" + inp.value + (inp.getAttribute("data-postfix") ?? "") + ")");
-    }
-    if (!filter.length) {
-        filter.push("none");
-    }
-    target.style.filter = filter.join(" ");
-}
-
-function attr2filter (el, form) {
-    form.reset();
-    var filter = el.style.filter;
-    if (!filter || filter === "none") {
-        return;
-    }
-    for (var i of filter.split(" ")) {
-        var eff = i.match(/[a-z]+/)[0];
-        var val = i.match(/\-?[0-9\.]+/)[0];
-        if (val) {
-            form.querySelector("[name='" + eff + ".active']").checked = true;
-            form.querySelector("[name='" + eff + ".value']").value = val;
-        }
-    }
-}
-
-function eventPanelSelect (e) {
-    e.stopPropagation();
-    panelActive = e.target.closest("div.wrapper");
-    attr2form(panelActive, document.querySelector("#form form"));
-    attr2filter(panelActive, document.getElementById("filters-panel"));
-    panelActive, document.querySelector("#form").style.display = "inline-block";
-    var pointerStyle = document.getElementById("pointer").style;
-    pointerStyle.top = (panelActive.offsetTop * scaleManager.scale) + 2 + "px";
-    pointerStyle.height = (panelActive.offsetHeight * scaleManager.scale) + 2 + "px";
-}
-
-function eventPanelUpdate (e) {
-    if (!panelActive) {
-        return;
-    }
-    input2attr(e.target, panelActive);
-}
-
-function eventBackgroundUpdate (e) {
-    input2attr(e.target, document.getElementById("frontpage"));
-}
-
-function eventPanelAddButtonClicked (e) {
-    e.preventDefault();
-    document.getElementById("frontpage").appendChild(
-        document.getElementById("panel-source").cloneNode(true)
-    ).style.display = '';
-}
-
-// Select panel:
-document.getElementById("frontpage").addEventListener("click", eventPanelSelect);
-// Panel change attribute:
-document.querySelector("#form form").addEventListener("change", eventPanelUpdate);
-// Global change background attribute:
-document.getElementById("background").addEventListener("change", eventBackgroundUpdate);
-// Load background attributes from image:
-attr2form(document.getElementById("frontpage"), document.getElementById("background"));
-// Add font:
-document.querySelector("#fonts input[name='add']").addEventListener("click", fontAdd);
-// Init "size" attribute inputs:
-for (var e of document.querySelectorAll("#form [data-type='size']")) {
-    new SizeElement(e);
-}
-// Panel background image:
-document.getElementById("image-button").addEventListener("click", eventImageButtonClicked);
-// Global background image: 
-document.getElementById("background-button").addEventListener("click", eventImageButtonClicked);
-// Image download:
-document.getElementById("download").addEventListener("click", eventDownloadClicked);
-// Add panel:
-document.getElementById("panel-add-button").addEventListener("click", eventPanelAddButtonClicked);
-// Global filter settings:
-document.getElementById("filters").addEventListener(
-    "change",
-    function (e) {
-        if (e.target.type !== "checkbox") {
-            e.target.closest("tr").querySelector("input[type='checkbox']").checked = true;
-        }
-        var form = e.currentTarget;
-        filter2attr(form, document.getElementById("frontpage"));
-    }
-);
-// Panel filter settings:
-document.getElementById("filters-panel").addEventListener(
-    "change",
-    function (e) {
-        if (!panelActive) {
-            return;
-        }
-        if (e.target.type !== "checkbox") {
-            e.target.closest("tr").querySelector("input[type='checkbox']").checked = true;
-        }
-        var form = e.currentTarget;
-        filter2attr(form, panelActive);
-    }
-);
-// Start accordeons:
-new Accordeon(document.getElementById("form"));
-document.querySelector("#form h3").dispatchEvent(new Event("click"));
-new Accordeon(document.getElementById("global"));
-document.querySelector("#global h3").dispatchEvent(new Event("click"));
-
-        </script>
+        <script src="js/index.js"></script>
     </body>
 </html>

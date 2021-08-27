@@ -24,7 +24,7 @@ class Panel {
         o.text = name;
         document.getElementById("panel-select-panel").appendChild(o);
         panelActive.setAttribute("data-title", name);
-        Panel.selectPanel();
+        Panel.selectPanel(panelActive);
     }
 
     // Select panel:

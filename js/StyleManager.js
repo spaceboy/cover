@@ -117,23 +117,28 @@ class StyleManager {
             this.frontpage.removeChild(el);
         }
         var form = document.getElementById("attributes");
+        var select = document.getElementById("panel-select-panel");
+        select.innerHTML = "";
         for (var i = 0, l = data["panels"].length; i < l; i++) {
             panelActive = frontpage.appendChild(source.cloneNode(true));
-            panelActive.style.display = '';
+            panelActive.style.display = "";
             panelActive.setAttribute("id", "panel-" + i);
             this.#loadFormElement(data["panels"][i], form, panelActive);
             if (data["panels"][i].hasOwnProperty("panelFilters")) {
                 this.loadFormFilter(data["panels"][i]["panelFilters"], document.getElementById("filters-panel"), panelActive);
             }
-            panelActive.setAttribute(
-                "data-title",
-                (
-                    data["panels"][i].hasOwnProperty("panelTitle")
-                    ? data["panels"][i]["panelTitle"]
-                    : "Panel " + (i + 1)
-                )
-            )
+            var panelTitle = (
+                data["panels"][i].hasOwnProperty("panelTitle")
+                ? data["panels"][i]["panelTitle"]
+                : "Panel " + (i + 1)
+            );
+            panelActive.setAttribute("data-title", panelTitle);
+            var o = document.createElement("option");
+            o.value = panelTitle;
+            o.text = panelTitle;
+            select.appendChild(o);
         }
+        Panel.selectPanel(panelActive);
 
         // Load filters:
         this.loadFormFilter(data["filters"], document.getElementById("filters"), frontpage);

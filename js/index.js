@@ -155,9 +155,17 @@ function dataURItoBlob(dataURI,mime) {
     return blob;
 }
 
-
+/*
 document.getElementById("share-fb").addEventListener("click", function (e) {
-    alert("click");
+    console.log("click");
+    //console.log(FB);
+
+    FB.getLoginStatus(
+        function (response) {
+            console.log(response);
+        },
+        true
+    );
 
     console.log(FB.getUserID());
     console.log(FB.getAccessToken());
@@ -196,4 +204,4 @@ document.getElementById("share-fb").addEventListener("click", function (e) {
          console.log(e);
      }
    */
-});
+//});

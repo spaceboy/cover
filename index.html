@@ -16,6 +16,26 @@
         <script src="js/Events.js"></script>
     </head>
     <body>
+        <script>
+            /*
+            window.fbAsyncInit = function() {
+              FB.init({
+                appId      : '2046451405476029',
+                xfbml      : true,
+                version    : 'v11.0'
+              });
+              FB.AppEvents.logPageView();
+            };
+            (function(d, s, id){
+               var js, fjs = d.getElementsByTagName(s)[0];
+               if (d.getElementById(id)) {return;}
+               js = d.createElement(s); js.id = id;
+               js.src = "https://connect.facebook.net/en_US/sdk.js";
+               fjs.parentNode.insertBefore(js, fjs);
+             }(document, 'script', 'facebook-jssdk'));
+             */
+          </script>
+        <!--script async defer crossorigin="anonymous" src="https://connect.facebook.net/cs_CZ/sdk.js"></script-->
         <div id="splash" style="background: #ccc; cursor: wait; display: none; height: 100%; position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;"></div>
         <div class="page">
             <div id="header">
@@ -742,8 +762,16 @@
                     </table>
                 </form>
             </div>
+            <!--
             <button id="share-fb">FB</button>
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" />
+            <div
+                class="fb-like"
+                data-share="true"
+                data-width="450"
+                data-show-faces="true">
+            </div>
+            -->
 
         </div>
 
@@ -762,7 +790,6 @@
                 <span>Nový panel</span>
             </div>
         </div>
-        <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

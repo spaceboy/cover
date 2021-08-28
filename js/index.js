@@ -130,3 +130,70 @@ new Accordeon(document.getElementById("form"));
 document.querySelector("#form h3").dispatchEvent(new Event("click"));
 new Accordeon(document.getElementById("global"));
 document.querySelector("#global h3").dispatchEvent(new Event("click"));
+
+
+
+function dataURItoBlob(dataURI,mime) {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs
+
+    var byteString = window.atob(dataURI);
+
+    // separate out the mime component
+
+
+    // write the bytes of the string to an ArrayBuffer
+    //var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    // write the ArrayBuffer to a blob, and you're done
+    var blob = new Blob([ia], { type: mime });
+
+    return blob;
+}
+
+
+document.getElementById("share-fb").addEventListener("click", function (e) {
+    alert("click");
+
+    console.log(FB.getUserID());
+    console.log(FB.getAccessToken());
+
+    var mimeType = "image/png";
+    /*
+    var fd = new FormData();
+    fd.append("access_token", accessToken);
+    try {
+        fd.append("source", dataURItoBlob(imageData, mimeType));
+    } catch (ex) {
+        console.log(ex);
+    }
+    fd.append("message","Kiss");
+
+    try {
+        $.ajax({
+             url:"https://graph.facebook.com/" + <<userID received on getting user details>> + "/photos?access_token=" + <<user accessToken>>,
+             type:"POST",
+             data:fd,
+             processData:false,
+             contentType:false,
+             cache:false,
+             success:function(data){
+                 console.log("success " + data);
+             },
+             error:function(shr,status,data){
+                 console.log("error " + data + " Status " + shr.status);
+             },
+             complete:function(){
+                 console.log("Ajax Complete");
+             }
+        });
+
+     } catch(e) {
+         console.log(e);
+     }
+   */
+});

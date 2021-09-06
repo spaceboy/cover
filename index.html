@@ -47,7 +47,7 @@
             </div>
             <div id="fp-wrapper">
                 <div id="frontpage">
-                    <div id="overlay"></div>
+                    <div id="overlay" style="background-size: cover; background-repeat: no-repeat; background-color: transparent; background-position-x: center; background-position-y: center; display: none; opacity: .1; z-index: 100;"></div>
                     <div class="wrapper" data-title="Panel 1" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
                         <div class="text" style="font-family: serif; font-size: 30px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span>Jméno Autora</span>
@@ -790,7 +790,10 @@
                                     <label for="form-overlay-display">Zobrazit překryv</label>
                                 </th>
                                 <td>
-                                    <input id="form-overlay-display" name="display" type="checkbox">
+                                    <select id="form-overlay-display" name="display">
+                                        <option value="block">ANO</option>
+                                        <option value="none">NE</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -888,6 +891,14 @@
                                 </th>
                                 <td>
                                     <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-zIndex">z-index</label>
+                                </th>
+                                <td>
+                                    <input id="form-overlay-zIndex" name="zIndex">
                                 </td>
                             </tr>
                         </tbody>

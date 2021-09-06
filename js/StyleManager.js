@@ -88,11 +88,14 @@ class StyleManager {
             panel["panelFilters"] = this.filter2json(document.getElementById("filters-panel"))
             panels.push(panel);
         }
-        Panel.selectPanel(panelActiveOriginal);
+        if (panelActiveOriginal) {
+            Panel.selectPanel(panelActiveOriginal);
+        }
         var style = {
             "panels": panels,
             "background": this.attr2json(frontpage, document.getElementById("background")),
-            "filters": this.filter2json(document.getElementById("filters"))
+            "filters": this.filter2json(document.getElementById("filters")),
+            "overlay": this.attr2json(document.getElementById("overlay"), document.getElementById("form-overlay"))
         };
         this.textarea.value = JSON.stringify(style, null, 4);
     }
@@ -145,6 +148,11 @@ class StyleManager {
 
         // Load background:
         this.#loadFormElement(data["background"], document.getElementById("background"), frontpage);
+        
+        // Load overlay:
+        if (data.hasOwnProperty("overlay")) {
+            this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), document.getElementById("overlay"));
+        }
     }
 
     downloadJson () {

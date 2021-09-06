@@ -95,14 +95,6 @@ class Events {
     }
 
     static changeOverlay (e) {
-        if (e.target.name === "display") {
-            document.getElementById("overlay").style.display = (
-                e.target.checked
-                ? "block"
-                : "none"
-            );
-            return;
-        }
         Transfer.input2attr(e.target, document.getElementById("overlay"));
     }
     

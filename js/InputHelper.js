@@ -9,6 +9,7 @@ class InputHelper {
             i.setAttribute("class", "helper");
             el.setAttribute("data-change", "ignore");
             el.setAttribute("data-method", "none");
+            el.setAttribute("data-skip", "true");
             el.before(i);
             el.addEventListener(
                 "change",

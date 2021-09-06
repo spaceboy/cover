@@ -125,6 +125,9 @@ document.getElementById("form-overlay-button").addEventListener("click", Events.
 // Overlay clicked:
 document.getElementById("overlay").addEventListener("click", Events.clickOverlay);
 
+// Init overlay form:
+Transfer.attr2form(document.getElementById("overlay"), document.getElementById("form-overlay"));
+
 // Add font:
 document.querySelector("#fonts input[name='add']").addEventListener("click", Events.clickFontAdd);
 
@@ -155,7 +158,7 @@ new Accordeon(document.getElementById("global"));
 document.querySelector("#global h3").dispatchEvent(new Event("click"));
 
 
-
+/*
 function dataURItoBlob(dataURI,mime) {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs
@@ -177,7 +180,7 @@ function dataURItoBlob(dataURI,mime) {
 
     return blob;
 }
-
+*/
 /*
 document.getElementById("share-fb").addEventListener("click", function (e) {
     console.log("click");

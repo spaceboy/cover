@@ -40,6 +40,7 @@ class Panel {
 
     // Update panel attribute:
     static update (e) {
+        console.log("update");
         if (!panelActive) {
             return;
         }

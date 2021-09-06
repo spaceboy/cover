@@ -6,6 +6,7 @@
         <link rel="shortcut icon" href="favicon.ico?v=1">
         <link rel="stylesheet" type="text/css" href="css/index.css?v=1">
         <script src="js/dom-to-image.js"></script>
+        <script src="js/InputHelper.js"></script>
         <script src="js/Transfer.js"></script>
         <script src="js/Panel.js"></script>
         <script src="js/SizeElement.js"></script>
@@ -36,7 +37,9 @@
              */
           </script>
         <!--script async defer crossorigin="anonymous" src="https://connect.facebook.net/cs_CZ/sdk.js"></script-->
-        <div id="splash" style="background: #ccc; cursor: wait; display: none; height: 100%; position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;"></div>
+        <div id="splash">
+            <p>Moment, prosím&hellip;</p>
+        </div>
         <div class="page">
             <div id="header">
                 <button id="download">Download</button>
@@ -44,6 +47,7 @@
             </div>
             <div id="fp-wrapper">
                 <div id="frontpage">
+                    <div id="overlay"></div>
                     <div class="wrapper" data-title="Panel 1" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
                         <div class="text" style="font-family: serif; font-size: 30px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span>Jméno Autora</span>
@@ -173,7 +177,7 @@
                                         <option value="text-top">text-top</option>
                                         <option value="top">top</option>
                                         <option value="unset">unset</option>
-                                        <option value="-moz-middle-with-baseline">-moz-middle-with-baseline</option>
+                                        <!--option value="-moz-middle-with-baseline">-moz-middle-with-baseline</option-->
                                     </select>
                                 </td>
                             </tr>
@@ -324,8 +328,17 @@
                                 <th>
                                     <label for="attributes-backgroundSize">Podklad (velikost)</label>
                                 </th>
+                                <style>
+                                    form input.helper {
+                                        width: 6em;
+                                    }
+                                    form select.helper {
+                                        width: 9em;
+                                    }
+                                </style>
                                 <td>
-                                    <select id="attributes-backgroundSize" name="backgroundSize">
+                                    <select class="helper" id="attributes-backgroundSize" name="backgroundSize">
+                                        <option value="">[zvolte]</option>
                                         <option value="auto">auto</option>
                                         <option value="contain">contain</option>
                                         <option value="cover">cover</option>
@@ -333,7 +346,7 @@
                                         <option value="round">round</option>
                                         <option value="initial">initial</option>
                                         <option value="revert">revert</option>
-                                        <option value="revert">unset</option>
+                                        <option value="unset">unset</option>
                                     </select>
                                 </td>
                             </tr>
@@ -342,7 +355,16 @@
                                     <label for="attributes-backgroundPositionX">Podklad (pozice X)</label>
                                 </th>
                                 <td>
-                                    <input id="attributes-backgroundPositionX" name="backgroundPositionX">
+                                    <select class="helper" id="attributes-backgroundPositionX" name="backgroundPositionX">
+                                        <option value="">[zvolte]</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="left">left</option>
+                                        <option value="revert">revert</option>
+                                        <option value="right">right</option>
+                                        <option value="unset">unset</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -350,7 +372,16 @@
                                     <label for="attributes-backgroundPositionY">Podklad (pozice Y)</label>
                                 </th>
                                 <td>
-                                    <input id="attributes-backgroundPositionY" name="backgroundPositionY">
+                                    <select class="helper" id="attributes-backgroundPositionY" name="backgroundPositionY">
+                                        <option value="">[zvolte]</option>
+                                        <option value="bottom">bottom</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="top">top</option>
+                                        <option value="unset">unset</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -678,7 +709,8 @@
                                     <label for="background-backgroundSize">Podklad (velikost)</label>
                                 </th>
                                 <td>
-                                    <select id="background-backgroundSize" name="backgroundSize">
+                                    <select class="helper" id="background-backgroundSize" name="backgroundSize">
+                                        <option value="">[zvolte]</option>
                                         <option value="auto">auto</option>
                                         <option value="contain">contain</option>
                                         <option value="cover">cover</option>
@@ -686,7 +718,7 @@
                                         <option value="round">round</option>
                                         <option value="initial">initial</option>
                                         <option value="revert">revert</option>
-                                        <option value="revert">unset</option>
+                                        <option value="unset">unset</option>
                                     </select>
                                 </td>
                             </tr>
@@ -695,7 +727,16 @@
                                     <label for="background-backgroundPositionX">Podklad (pozice X)</label>
                                 </th>
                                 <td>
-                                    <input id="background-backgroundPositionX" name="backgroundPositionX">
+                                    <select class="helper" id="background-backgroundPositionX" name="backgroundPositionX">
+                                        <option value="">[zvolte]</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="left">left</option>
+                                        <option value="revert">revert</option>
+                                        <option value="right">right</option>
+                                        <option value="unset">unset</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -703,7 +744,16 @@
                                     <label for="background-backgroundPositionY">Podklad (pozice Y)</label>
                                 </th>
                                 <td>
-                                    <input id="background-backgroundPositionY" name="backgroundPositionY">
+                                    <select class="helper" id="background-backgroundPositionY" name="backgroundPositionY">
+                                        <option value="">[zvolte]</option>
+                                        <option value="bottom">bottom</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="top">top</option>
+                                        <option value="unset">unset</option>
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>
@@ -725,6 +775,119 @@
                                         <option value="1000×1600" selected>Minimal (1000×1600)</option>
                                         <option value="1600×2560">Profi (1600×2560)</option>
                                     </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+                <form id="form-overlay">
+                    <h3 data-accordeon="table-overlay-global">Překryv</h3>
+                    <table id="table-overlay-global">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-display">Zobrazit překryv</label>
+                                </th>
+                                <td>
+                                    <input id="form-overlay-display" name="display" type="checkbox">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundColor">Podkladová barva</label>
+                                </th>
+                                <td>
+                                    <input id="form-overlay-backgroundColor" name="backgroundColor">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundImage">Podklad (obrázek)</label>
+                                </th>
+                                <td>
+                                    <input id="form-overlay-backgroundImage" name="backgroundImage">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <button id="form-overlay-button">Načíst obrázek</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundRepeat">Podklad (opakování)</label>
+                                </th>
+                                <td>
+                                    <select id="form-overlay-backgroundRepeat" name="backgroundRepeat">
+                                        <option value="no-repeat">no-repeat</option>
+                                        <option value="repeat">repeat</option>
+                                        <option value="repeat-x">repeat-x</option>
+                                        <option value="repeat-y">repeat-y</option>
+                                        <option value="round">round</option>
+                                        <option value="space">space</option>
+                                        <option value="unset">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundSize">Podklad (velikost)</label>
+                                </th>
+                                <td>
+                                    <select class="helper" id="form-overlay-backgroundSize" name="backgroundSize">
+                                        <option value="auto">auto</option>
+                                        <option value="contain">contain</option>
+                                        <option value="cover">cover</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="round">round</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="revert">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundPositionX">Podklad (pozice X)</label>
+                                </th>
+                                <td>
+                                    <select class="helper" id="form-overlay-backgroundPositionX" name="backgroundPositionX">
+                                        <option value="">[zvolte]</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="left">left</option>
+                                        <option value="revert">revert</option>
+                                        <option value="right">right</option>
+                                        <option value="unset">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-backgroundPositionY">Podklad (pozice Y)</label>
+                                </th>
+                                <td>
+                                    <select class="helper" id="form-overlay-backgroundPositionY" name="backgroundPositionY">
+                                        <option value="">[zvolte]</option>
+                                        <option value="bottom">bottom</option>
+                                        <option value="center">center</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="revert">revert</option>
+                                        <option value="top">top</option>
+                                        <option value="unset">unset</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="form-overlay-opacity">Neprůhlednost</label>
+                                </th>
+                                <td>
+                                    <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01">
                                 </td>
                             </tr>
                         </tbody>

@@ -95,33 +95,56 @@ function getValue (el) {
     }
 }
 
+// Apply input helper:
+InputHelper.init(document.getElementById("attributes"));
+InputHelper.init(document.getElementById("form-overlay"));
+InputHelper.init(document.getElementById("background"));
 
 // Select panel:
 document.getElementById("frontpage").addEventListener("click", Panel.selectByClick);
 document.getElementById("panel-select-panel").addEventListener("change", Panel.selectBySelector);
+
 // Panel change attribute:
 document.querySelector("#form form.attributes").addEventListener("change", Panel.update);
+
 // Add panel:
 document.getElementById("panel-add-panel").addEventListener("click", Panel.addPanel);
+
 // Global change background attribute:
 document.getElementById("background").addEventListener("change", Events.changeBackground);
+
 // Load background attributes from image:
 Transfer.attr2form(document.getElementById("frontpage"), document.getElementById("background"));
+
+// Global change background attribute:
+document.getElementById("form-overlay").addEventListener("change", Events.changeOverlay);
+
+// Overlay background image:
+document.getElementById("form-overlay-button").addEventListener("click", Events.clickOverlayButton);
+
+// Overlay clicked:
+document.getElementById("overlay").addEventListener("click", Events.clickOverlay);
+
 // Add font:
 document.querySelector("#fonts input[name='add']").addEventListener("click", Events.clickFontAdd);
+
 // Init "size" attribute inputs:
 for (var e of document.querySelectorAll("#form [data-type='size']")) {
     new SizeElement(e);
 }
+
 // Panel background image:
 document.getElementById("image-button").addEventListener("click", Events.clickImageButton);
+
 // Global background image:
 document.getElementById("background-button").addEventListener("click", Events.clickImageButton);
+
 // Image download:
 document.getElementById("download").addEventListener("click", Events.clickDownload);
 
 // Global filter settings:
 document.getElementById("filters").addEventListener("change", Events.changeFilters);
+
 // Panel filter settings:
 document.getElementById("filters-panel").addEventListener("change", Events.changePanelFilter);
 

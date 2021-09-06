@@ -16,6 +16,37 @@ h1, h2, h3 {
     font-family: sans-serif;
     margin: 0 0 .5em 0;
 }
+
+#splash {
+    background: #ccc;
+    color: #fff;
+    cursor: wait;
+    display: none;
+    font-size: 200%;
+    font-weight: bold;
+    height: 100%;
+    padding-top: 10%;
+    position: fixed;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#overlay {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
 form table {
     background: #f8f8f8;
     margin: 0 0 1em 0;

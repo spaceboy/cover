@@ -19,6 +19,7 @@ class Accordeon {
                         var elem = document.getElementById(el.getAttribute("data-accordeon"));
                         if (elem) {
                             elem.style.display = "none";
+                            el.querySelector("i").setAttribute("class", "fas fa-chevron-down");
                         }
                     }
                     body.style.display = display;

@@ -187,3 +187,17 @@ div.page {
 .clear {
     clear: both;
 }
+
+h3.accordeon {
+    /*border: 1px solid #000000;*/
+    cursor: pointer;
+    margin: 0;
+    padding: .5em;
+}
+h3.accordeon > i {
+    color: #888;
+    float: right;
+}
+h3.accordeon:hover {
+    background: #f8f8f8;
+}

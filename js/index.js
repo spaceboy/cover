@@ -129,7 +129,8 @@ document.getElementById("overlay").addEventListener("click", Events.clickOverlay
 Transfer.attr2form(document.getElementById("overlay"), document.getElementById("form-overlay"));
 
 // Add font:
-document.querySelector("#fonts input[name='add']").addEventListener("click", Events.clickFontAdd);
+document.querySelector("#google-fonts input[name='add']").addEventListener("click", Events.clickGoogleFontAdd);
+document.querySelector("#upload-fonts input[name='add']").addEventListener("click", Events.clickFontUpload);
 
 // Init "size" attribute inputs:
 for (var e of document.querySelectorAll("#form [data-type='size']")) {

@@ -8,8 +8,9 @@
         <link rel="stylesheet" type="text/css" href="css/fa/styles/fontawesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/solid.min.css">
         <script src="js/dom-to-image.js"></script>
+        <script src="js/FileUpload.js"></script>
         <script src="js/InputHelper.js"></script>
-        <script src="js/Transfer.js"></script>
+        <script src="js/Transfer.js?v=1"></script>
         <script src="js/Panel.js"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
@@ -252,7 +253,7 @@
                                     <label for="attributes-fontFamily">Řez písma</label>
                                 </th>
                                 <td>
-                                    <select data-target="div.text" id="attributes-fontFamily" name="fontFamily">
+                                    <select data-method="quoted" data-target="div.text" id="attributes-fontFamily" name="fontFamily">
                                         <option value="">[neurčeno]</option>
                                         <option value="serif">serif</option>
                                         <option value="sans-serif">sans serif</option>
@@ -939,29 +940,22 @@
                     </table>
                 </form>
 
-                <form id="url-fonts">
-                    <h3 data-accordeon="table-url-fonts-global">Přidat písmo z URL</h3>
-                    <table id="table-url-fonts-global">
+                <form id="upload-fonts">
+                    <h3 data-accordeon="table-upload-fonts">Upload písma</h3>
+                    <table id="table-upload-fonts">
                         <tbody>
                             <tr>
                                 <th>
-                                    <label for="url-fonts-name">Font name</label>
+                                    <label for="upload-fonts-name">Font name</label>
                                 </th>
                                 <td>
-                                    <input id="url-fonts-name" name="name" placeholder="Font name">
+                                    <input id="upload-fonts-name" name="name" placeholder="Font name">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="url-fonts-url">Font URL</label>
-                                </th>
+                                <th></th>
                                 <td>
-                                    <input id="url-fonts-url" name="url" placeholder="https://server/font.ttf">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="button" name="add" value="Přidat">
+                                    <input type="button" name="add" value="Načíst">
                                 </td>
                             </tr>
                         </tbody>

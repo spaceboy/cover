@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <title>Cover generator</title>
         <link rel="shortcut icon" href="favicon.ico?v=1">
-        <link rel="stylesheet" type="text/css" href="css/index.css?v=1">
+        <link rel="stylesheet" type="text/css" href="css/index.css?v=2">
+        <link rel="stylesheet" type="text/css" href="css/fa/styles/fontawesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/fa/styles/solid.min.css">
         <script src="js/dom-to-image.js"></script>
         <script src="js/InputHelper.js"></script>
         <script src="js/Transfer.js"></script>
@@ -13,7 +15,7 @@
         <script src="js/ScaleManager.js"></script>
         <script src="js/StyleManager.js"></script>
         <script src="js/FontManager.js"></script>
-        <script src="js/Accordeon.js"></script>
+        <script src="js/Accordeon.js?v=1"></script>
         <script src="js/Events.js"></script>
     </head>
     <body>
@@ -905,29 +907,59 @@
                     </table>
                 </form>
 
-                <form id="fonts">
-                    <h3 data-accordeon="table-fonts-global">Přidat písmo</h3>
-                    <table id="table-fonts-global">
+                <form id="google-fonts">
+                    <h3 data-accordeon="table-google-fonts-global">Přidat písmo Google fonts</h3>
+                    <table id="table-google-fonts-global">
                         <tbody>
                             <tr>
                                 <th>
-                                    <label for="fonts-name">Font name</label>
+                                    <label for="google-fonts-name">Font name</label>
                                 </th>
                                 <td>
-                                    <input id="fonts-name" name="name">
+                                    <input id="google-fonts-name" name="name" placeholder="Google fonts name">
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="fonts-url">Font URL</label>
+                                    <label for="google-fonts-url">Font URL</label>
                                 </th>
                                 <td>
-                                    <input id="fonts-url" name="url">
+                                    <input id="google-fonts-url" name="url" placeholder="https://fonts.googleapis.com/css2?family=...">
                                 </td>
                             </tr>
                             <tr>
                                 <th>
+                                    <a href="https://fonts.google.com/" target="_blank" title="Google fonts">vybrat</a>
                                 </th>
+                                <td>
+                                    <input type="button" name="add" value="Přidat">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+                <form id="url-fonts">
+                    <h3 data-accordeon="table-url-fonts-global">Přidat písmo z URL</h3>
+                    <table id="table-url-fonts-global">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="url-fonts-name">Font name</label>
+                                </th>
+                                <td>
+                                    <input id="url-fonts-name" name="name" placeholder="Font name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="url-fonts-url">Font URL</label>
+                                </th>
+                                <td>
+                                    <input id="url-fonts-url" name="url" placeholder="https://server/font.ttf">
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     <input type="button" name="add" value="Přidat">
                                 </td>

@@ -19,12 +19,22 @@ class Accordeon {
                         var elem = document.getElementById(el.getAttribute("data-accordeon"));
                         if (elem) {
                             elem.style.display = "none";
+                            el.querySelector("i").setAttribute("class", "fas fa-chevron-down");
                         }
                     }
                     body.style.display = display;
+                    e.currentTarget.querySelector("i").setAttribute(
+                        "class",
+                        (
+                            display == "none"
+                            ? "fas fa-chevron-down"
+                            : "fas fa-chevron-up"
+                        )
+                    );
                 }
             );
-            title.style.cursor = "pointer";
+            title.setAttribute("class", "accordeon");
+            title.innerHTML = title.innerHTML + '<i class="fas fa-chevron-down"></i>';
         }
     }
 }

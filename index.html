@@ -10,14 +10,14 @@
         <script src="js/dom-to-image.js"></script>
         <script src="js/FileUpload.js"></script>
         <script src="js/InputHelper.js"></script>
-        <script src="js/Transfer.js?v=1"></script>
+        <script src="js/Transfer.js?v=2"></script>
         <script src="js/Panel.js"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
-        <script src="js/StyleManager.js?v=2"></script>
+        <script src="js/StyleManager.js?v=3"></script>
         <script src="js/FontManager.js"></script>
         <script src="js/Accordeon.js?v=1"></script>
-        <script src="js/Events.js"></script>
+        <script src="js/Events.js?v=1"></script>
     </head>
     <body>
         <script>
@@ -563,6 +563,19 @@
                                     <input id="project-settings-version" lang="en-US" type="number" value="1.00" step="0.01" onchange="(function (el) {el.value = parseFloat(el.value).toFixed(2);})(this);">
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    <label for="project-settings-size">Cover size</label>
+                                </th>
+                                <td>
+                                    <select id="project-settings-size" name="size">
+                                        <option value="500×800">Preview (500×800)</option>
+                                        <option value="625×1000">Hobby (625×1000)</option>
+                                        <option value="1000×1600" selected>Minimal (1000×1600)</option>
+                                        <option value="1600×2560">Profi (1600×2560)</option>
+                                    </select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </form>
@@ -787,27 +800,6 @@
                     </table>
                 </form>
 
-                <form id="size">
-                    <h3 data-accordeon="table-size-global">Velikost obálky</h3>
-                    <table id="table-size-global">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <label for="size-size">Velikost obálky</label>
-                                </th>
-                                <td>
-                                    <select id="size-size" name="size">
-                                        <option value="500×800">Preview (500×800)</option>
-                                        <option value="625×1000">Hobby (625×1000)</option>
-                                        <option value="1000×1600" selected>Minimal (1000×1600)</option>
-                                        <option value="1600×2560">Profi (1600×2560)</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-
                 <form id="form-overlay">
                     <h3 data-accordeon="table-overlay-global">Překryv</h3>
                     <table id="table-overlay-global">
@@ -993,10 +985,10 @@
 
         <div class="clear"></div>
         <div id="json-wrapper">
-            <button id="jsonShow">zobrazit zdrojový kód</button>
-            <button id="jsonApply">použít nastavení</button>
-            <button id="jsonDownload">download nastavení</button>
-            <button id="jsonUpload">upload nastavení</button>
+            <button id="jsonShow"><i class="fas fa-file-code"></i> show source code</button>
+            <button id="jsonApply"><i class="fas fa-file-upload"></i> apply source code</button>
+            <button id="jsonDownload"><i class="fas fa-download"></i> download source code</button>
+            <button id="jsonUpload"><i class="fas fa-upload"></i> upload and apply source code</button>
             <div class="clear"></div>
             <textarea id="jsonText"></textarea>
         </div>
@@ -1006,6 +998,6 @@
                 <span>Nový panel</span>
             </div>
         </div>
-        <script src="js/index.js"></script>
+        <script src="js/index.js?v=1"></script>
     </body>
 </html>

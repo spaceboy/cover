@@ -4,7 +4,7 @@ var panelActive;
 
 var frontpage = document.getElementById("frontpage");
 
-var scaleManager = new ScaleManager(document.getElementById("size-size"), frontpage);
+var scaleManager = new ScaleManager(document.getElementById("project-settings-size"), frontpage);
 
 // Upload, download, edit as JSON:
 new StyleManager(

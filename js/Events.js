@@ -16,8 +16,8 @@ class Events {
             .then(function (dataUrl) {
                 scaleManager.setScale(scale);
                 splash.style.display = "none";
-                var link = document.createElement('a');
-                link.download = 'my-image-name.jpeg';
+                var link = document.createElement("a");
+                link.download = StyleManager.getProjectFilename("jpeg");
                 link.href = dataUrl;
                 link.click();
                 //document.removeChild(link);

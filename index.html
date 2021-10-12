@@ -543,6 +543,30 @@
 
             <div id="global">
                 <h2>Globální nastavení</h2>
+                <form id="project-settings">
+                    <h3 data-accordeon="table-project-settings">Project settings</h3>
+                    <table id="table-project-settings">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="project-settings-title">Title</label>
+                                </th>
+                                <td>
+                                    <input id="project-settings-title" value="untitled">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="project-settings-version">Version</label>
+                                </th>
+                                <td>
+                                    <input id="project-settings-version" lang="en-US" type="number" value="1.00" step="0.01" onchange="(function (el) {el.value = parseFloat(el.value).toFixed(2);})(this);">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
                 <form id="filters">
                     <h3 data-accordeon="table-filters-global">Filtry</h3>
                     <table id="table-filters-global">

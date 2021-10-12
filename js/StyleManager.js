@@ -91,6 +91,15 @@ class StyleManager {
         document.querySelector("#form form select[name='fontFamily']").appendChild(o);
     }
 
+    static getProjectTitle () {
+        var t = document.getElementById("project-settings-title").value.trim();
+        return (t ? t : "untitled");
+    }
+
+    static getProjectVersion () {
+        return document.getElementById("project-settings-version").value;
+    }
+
     // Copy style to JSON box
     getStyle () {
         // Panels:
@@ -118,6 +127,17 @@ class StyleManager {
         }
         // Result:
         var style = {
+            "about": [
+                "This is data file for free to use e-book cover generator",
+                "https://spaceboy.github.io/cover/",
+                "Developed by Spaceboy.",
+                "Before you start editing this file, make sure you know what you are doing.",
+            ],
+            "project": {
+                "title": StyleManager.getProjectTitle(),
+                "version": StyleManager.getProjectVersion(),
+                "revisionDate": (new Date()).toUTCString()
+            },
             "panels": panels,
             "background": this.attr2json(frontpage, document.getElementById("background")),
             "filters": this.filter2json(document.getElementById("filters")),
@@ -206,6 +226,16 @@ class StyleManager {
                     document.head.appendChild(el);
                     StyleManager.addFontToSelect(f);
                 }
+            }
+        }
+
+        // Project settings:
+        if (data.hasOwnProperty("project")) {
+            if (data["project"].hasOwnProperty("title")) {
+                document.getElementById("project-settings-title").value = data["project"]["title"];
+            }
+            if (data["project"].hasOwnProperty("version")) {
+                document.getElementById("project-settings-version").value = data["project"]["version"];
             }
         }
     }

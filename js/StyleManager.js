@@ -91,6 +91,18 @@ class StyleManager {
         document.querySelector("#form form select[name='fontFamily']").appendChild(o);
     }
 
+    static getProjectFilename (ext) {
+        var fileName = StyleManager.getProjectTitle().toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/\-+/g, "-");
+        if (StyleManager.getProjectVersion()) {
+            fileName += "." + StyleManager.getProjectVersion()
+        }
+        return (ext ? fileName + "." + ext : fileName);
+    }
+
+    static getProjectSize () {
+        return document.getElementById("project-settings-size").value;
+    }
+
     static getProjectTitle () {
         var t = document.getElementById("project-settings-title").value.trim();
         return (t ? t : "untitled");
@@ -136,6 +148,7 @@ class StyleManager {
             "project": {
                 "title": StyleManager.getProjectTitle(),
                 "version": StyleManager.getProjectVersion(),
+                "size": StyleManager.getProjectSize(),
                 "revisionDate": (new Date()).toUTCString()
             },
             "panels": panels,
@@ -237,13 +250,17 @@ class StyleManager {
             if (data["project"].hasOwnProperty("version")) {
                 document.getElementById("project-settings-version").value = data["project"]["version"];
             }
+            if (data["project"].hasOwnProperty("size")) {
+                document.getElementById("project-settings-size").value = data["project"]["size"];
+                scaleManager.setSize();
+            }
         }
     }
 
     downloadJson () {
         this.getStyle();
-        var link = document.createElement('a');
-        link.download = 'my-project-name.json';
+        var link = document.createElement("a");
+        link.download = StyleManager.getProjectFilename("json");
         link.href =  "data:text/json;charset=utf-8," + encodeURIComponent(this.textarea.value);
         link.click();
     }

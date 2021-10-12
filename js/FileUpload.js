@@ -38,7 +38,7 @@ class FileUpload {
             return;
         }
         if (this.acceptStart && !e.target.files[0].type.startsWith(this.acceptStart)) {
-            alert("File type mismatch.\nExpected\"" + this.acceptStart + "\"\nget \"" + e.target.files[0].type + "\"");
+            alert("File type mismatch.\nExpected \"" + this.acceptStart + "*\"\nget \"" + e.target.files[0].type + "\"");
             return;
         } else {
             this.processFile.call(this, e.target.files[0]);

@@ -77,8 +77,23 @@ class StyleManager {
         return json;
     }
 
+    static getGoogleFontName (href) {
+        var url = new URL(href);
+        var params = new URLSearchParams(url.search);
+        return params.get("family");
+    }
+
+    // Insert font to selects:
+    static addFontToSelect (fontName) {
+        var o = document.createElement("option");
+        o.value = fontName;
+        o.innerText = fontName;
+        document.querySelector("#form form select[name='fontFamily']").appendChild(o);
+    }
+
     // Copy style to JSON box
     getStyle () {
+        // Panels:
         var panels = [];
         var panelActiveOriginal = panelActive;
         for (var el of document.querySelectorAll("#frontpage > div.wrapper")) {
@@ -91,11 +106,26 @@ class StyleManager {
         if (panelActiveOriginal) {
             Panel.selectPanel(panelActiveOriginal);
         }
+        // Fonts:
+        var fontsGoogle = {};
+        for (var el of document.head.querySelectorAll("link[data-type='font']")) {
+            var href = el.getAttribute("href");
+            fontsGoogle[StyleManager.getGoogleFontName(href)] = href;
+        }
+        var fontsUpload = {};
+        for (var el of document.head.querySelectorAll("style[data-type='font']")) {
+            fontsUpload[el.getAttribute("data-name")] = el.innerHTML;
+        }
+        // Result:
         var style = {
             "panels": panels,
             "background": this.attr2json(frontpage, document.getElementById("background")),
             "filters": this.filter2json(document.getElementById("filters")),
-            "overlay": this.attr2json(document.getElementById("overlay"), document.getElementById("form-overlay"))
+            "overlay": this.attr2json(document.getElementById("overlay"), document.getElementById("form-overlay")),
+            "fonts": {
+                "google": fontsGoogle,
+                "upload": fontsUpload
+            }
         };
         this.textarea.value = JSON.stringify(style, null, 4);
     }
@@ -148,10 +178,35 @@ class StyleManager {
 
         // Load background:
         this.#loadFormElement(data["background"], document.getElementById("background"), frontpage);
-        
+
         // Load overlay:
         if (data.hasOwnProperty("overlay")) {
             this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), document.getElementById("overlay"));
+        }
+
+        // Load fonts:
+        if (data.hasOwnProperty("fonts")) {
+            if (data["fonts"].hasOwnProperty("google")) {
+                for (var f in data["fonts"]["google"]) {
+                    var el = document.createElement("link");
+                    el.href = data["fonts"]["google"][f];
+                    el.rel = "stylesheet";
+                    el.setAttribute("data-type", "font");
+                    document.head.appendChild(el);
+                    StyleManager.addFontToSelect(f);
+                }
+            }
+            //StyleManager.addFontToSelect()
+            if (data["fonts"].hasOwnProperty("upload")) {
+                for (var f in data["fonts"]["upload"]) {
+                    var el = document.createElement("style");
+                    el.setAttribute("data-type", "font");
+                    el.setAttribute("data-name", f);
+                    el.innerHTML = data["fonts"]["upload"][f];
+                    document.head.appendChild(el);
+                    StyleManager.addFontToSelect(f);
+                }
+            }
         }
     }
 

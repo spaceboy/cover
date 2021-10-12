@@ -29,30 +29,22 @@ class Events {
             });
     }
 
-    // Insert font to select:
-    static addFontToSelect (fontName) {
-        var o = document.createElement("option");
-        o.value = fontName;
-        o.innerText = fontName;
-        document.querySelector("#form form select[name='fontFamily']").appendChild(o);
-    }
-
     static clickGoogleFontAdd (e) {
         e.preventDefault();
         var form = e.currentTarget.closest("form"),
-            fontName = form.querySelector("input[name='name']").value,
-            fontUrl = form.querySelector("input[name='url']").value;
+            fontUrl = form.querySelector("input[name='url']").value,
+            fontName = StyleManager.getGoogleFontName(fontUrl);
 
         // Include link element with font to HTML document:
         var el = document.createElement("link");
         el.href = fontUrl;
         el.rel = "stylesheet";
+        el.setAttribute("data-type", "font");
         document.head.appendChild(el);
 
-        Events.addFontToSelect(fontName);
+        StyleManager.addFontToSelect(fontName);
 
         // Clear form:
-        form.querySelector("input[name='name']").value = "";
         form.querySelector("input[name='url']").value = "";
     }
 
@@ -80,16 +72,20 @@ class Events {
                         );
                         // Find font name:
                         var fontName = (
-                            document.getElementById("upload-fonts-name").value
-                            ? document.getElementById("upload-fonts-name").value
+                            document.getElementById("upload-fonts-name").value.trim()
+                            ? document.getElementById("upload-fonts-name").value.trim()
                             : file.name
                         ).replace(/\./g, '_');
                         // Create style element:
                         var el = document.createElement("style");
+                        el.setAttribute("data-type", "font");
+                        el.setAttribute("data-name", fontName);
                         el.innerHTML = "@font-face { font-family: '" + fontName + "'; src: url('" + e.target.result + "') " + fontFormat + "; }";
                         document.head.appendChild(el);
                         // Add font to selects:
-                        Events.addFontToSelect(fontName);
+                        StyleManager.addFontToSelect(fontName);
+                        // Clear form:
+                        document.getElementById("upload-fonts-name").value = "";
                     }
                 );
                 fr.readAsDataURL(file);
@@ -98,8 +94,6 @@ class Events {
             {}
         );
         fileUpload.upload();
-        // Clear form:
-        document.getElementById("upload-fonts-name").value = "";
     }
 
     static changeFilters (e) {

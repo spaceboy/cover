@@ -29,27 +29,77 @@ class Events {
             });
     }
 
-    static clickFontAdd (e) {
+    // Insert font to select:
+    static addFontToSelect (fontName) {
+        var o = document.createElement("option");
+        o.value = fontName;
+        o.innerText = fontName;
+        document.querySelector("#form form select[name='fontFamily']").appendChild(o);
+    }
+
+    static clickGoogleFontAdd (e) {
         e.preventDefault();
         var form = e.currentTarget.closest("form"),
             fontName = form.querySelector("input[name='name']").value,
-            fontUrl = form.querySelector("input[name='url']").value
+            fontUrl = form.querySelector("input[name='url']").value;
 
-        // Include style element with font to HTML document:
+        // Include link element with font to HTML document:
         var el = document.createElement("link");
         el.href = fontUrl;
         el.rel = "stylesheet";
         document.head.appendChild(el);
 
-        // Insert font to select:
-        var o = document.createElement("option");
-        o.value = fontName;
-        o.innerText = fontName;
-        document.querySelector("#form form select[name='fontFamily']").appendChild(o);
+        Events.addFontToSelect(fontName);
 
         // Clear form:
         form.querySelector("input[name='name']").value = "";
         form.querySelector("input[name='url']").value = "";
+    }
+
+    static clickFontUpload (e) {
+        e.preventDefault();
+        var fileUpload = new FileUpload(
+            function (file) {
+                var fr = new FileReader;
+                fr.addEventListener(
+                    "load",
+                    e => {
+                        // Find font type:
+                        var ext = FileUpload.getFileExt(file.name);
+                        var lookUp = {
+                            "woff": "woff",
+                            "woff2": "woff2",
+                            "ttf": "truetype",
+                            "otf": "opentype",
+                            "svg": "svg"
+                        }
+                        var fontFormat = (
+                            lookUp.hasOwnProperty(ext)
+                            ? "format('" + lookUp[ext] + "')"
+                            : ""
+                        );
+                        // Find font name:
+                        var fontName = (
+                            document.getElementById("upload-fonts-name").value
+                            ? document.getElementById("upload-fonts-name").value
+                            : file.name
+                        ).replace(/\./g, '_');
+                        // Create style element:
+                        var el = document.createElement("style");
+                        el.innerHTML = "@font-face { font-family: '" + fontName + "'; src: url('" + e.target.result + "') " + fontFormat + "; }";
+                        document.head.appendChild(el);
+                        // Add font to selects:
+                        Events.addFontToSelect(fontName);
+                    }
+                );
+                fr.readAsDataURL(file);
+            },
+            "font/",
+            {}
+        );
+        fileUpload.upload();
+        // Clear form:
+        document.getElementById("upload-fonts-name").value = "";
     }
 
     static changeFilters (e) {
@@ -87,7 +137,7 @@ class Events {
         );
         inputImage.click();
     }
-    
+
     static clickOverlayButton (e) {
         e.preventDefault();
         backgroundSubject = document.getElementById("overlay");
@@ -97,7 +147,7 @@ class Events {
     static changeOverlay (e) {
         Transfer.input2attr(e.target, document.getElementById("overlay"));
     }
-    
+
     static clickOverlay () {
         var checkbox = document.getElementById("form-overlay-display");
         checkbox.checked = false;
@@ -111,5 +161,5 @@ class Events {
             )
         );
     }
-    
+
 };

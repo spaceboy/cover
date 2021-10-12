@@ -45,6 +45,9 @@ class Transfer {
             case "html":
                 el.innerHTML = getValue(inp);
                 break;
+            case "quoted":
+                el.style[(inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : inp.name)] = '"' + getValue(inp) + '"';
+                break;
             case "style":
             default:
                 el.style[(inp.hasAttribute("data-attribute") ? inp.getAttribute("data-attribute") : inp.name)] = getValue(inp);

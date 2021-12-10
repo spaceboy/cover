@@ -67,20 +67,20 @@ class Events {
                         }
                         var fontFormat = (
                             lookUp.hasOwnProperty(ext)
-                            ? "format('" + lookUp[ext] + "')"
+                            ? "format(\"" + lookUp[ext] + "\")"
                             : ""
                         );
                         // Find font name:
                         var fontName = (
                             document.getElementById("upload-fonts-name").value.trim()
                             ? document.getElementById("upload-fonts-name").value.trim()
-                            : file.name
+                            : "Font_" + file.name
                         ).replace(/\./g, '_');
                         // Create style element:
                         var el = document.createElement("style");
                         el.setAttribute("data-type", "font");
                         el.setAttribute("data-name", fontName);
-                        el.innerHTML = "@font-face { font-family: '" + fontName + "'; src: url('" + e.target.result + "') " + fontFormat + "; }";
+                        el.innerHTML = "@font-face { font-family: \"" + fontName + "\"; src: url(\"" + e.target.result + "\") " + fontFormat + "; }";
                         document.head.appendChild(el);
                         // Add font to selects:
                         StyleManager.addFontToSelect(fontName);

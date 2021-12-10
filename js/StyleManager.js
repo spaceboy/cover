@@ -178,6 +178,31 @@ class StyleManager {
         var data = JSON.parse(this.textarea.value);
         var source = document.getElementById("panel-source");
 
+        // Load fonts:
+        if (data.hasOwnProperty("fonts")) {
+            if (data["fonts"].hasOwnProperty("google")) {
+                for (var f in data["fonts"]["google"]) {
+                    var el = document.createElement("link");
+                    el.href = data["fonts"]["google"][f];
+                    el.rel = "stylesheet";
+                    el.setAttribute("data-type", "font");
+                    document.head.appendChild(el);
+                    StyleManager.addFontToSelect(f);
+                }
+            }
+            //StyleManager.addFontToSelect()
+            if (data["fonts"].hasOwnProperty("upload")) {
+                for (var f in data["fonts"]["upload"]) {
+                    var el = document.createElement("style");
+                    el.setAttribute("data-type", "font");
+                    el.setAttribute("data-name", f);
+                    el.innerHTML = data["fonts"]["upload"][f];
+                    document.head.appendChild(el);
+                    StyleManager.addFontToSelect(f);
+                }
+            }
+        }
+
         // Load panels:
         for (var el of this.frontpage.querySelectorAll("div.wrapper")) {
             this.frontpage.removeChild(el);
@@ -215,31 +240,6 @@ class StyleManager {
         // Load overlay:
         if (data.hasOwnProperty("overlay")) {
             this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), document.getElementById("overlay"));
-        }
-
-        // Load fonts:
-        if (data.hasOwnProperty("fonts")) {
-            if (data["fonts"].hasOwnProperty("google")) {
-                for (var f in data["fonts"]["google"]) {
-                    var el = document.createElement("link");
-                    el.href = data["fonts"]["google"][f];
-                    el.rel = "stylesheet";
-                    el.setAttribute("data-type", "font");
-                    document.head.appendChild(el);
-                    StyleManager.addFontToSelect(f);
-                }
-            }
-            //StyleManager.addFontToSelect()
-            if (data["fonts"].hasOwnProperty("upload")) {
-                for (var f in data["fonts"]["upload"]) {
-                    var el = document.createElement("style");
-                    el.setAttribute("data-type", "font");
-                    el.setAttribute("data-name", f);
-                    el.innerHTML = data["fonts"]["upload"][f];
-                    document.head.appendChild(el);
-                    StyleManager.addFontToSelect(f);
-                }
-            }
         }
 
         // Project settings:

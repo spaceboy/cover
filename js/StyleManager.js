@@ -91,8 +91,41 @@ class StyleManager {
         document.querySelector("#form form select[name='fontFamily']").appendChild(o);
     }
 
+    static slugify(s) {
+        var r = {
+            'á': 'a',
+            'ä': 'ae',
+            'č': 'c',
+            'ď': 'd',
+            'é': 'e',
+            'ě': 'e',
+            'ë': 'e',
+            'í': 'i',
+            'ľ': 'l',
+            'ň': 'n',
+            'ó': 'o',
+            'ö': 'oe',
+            'ř': 'r',
+            'š': 's',
+            'ť': 't',
+            'ú': 'u',
+            'ů': 'u',
+            'ü': 'ue',
+            'ý': 'y',
+            'ž': 'z',
+            '+': ' plus ',
+            '&': ' a ',
+            '€': 'eur'
+        };
+        s = s.trim().toLowerCase();
+        for (var i in r) {
+            s = s.replaceAll(i, r[i]);
+        }
+        return s.replace(/[^a-z]/g, '-').replace(/\-+/g, '-');
+    }
+
     static getProjectFilename (ext) {
-        var fileName = StyleManager.getProjectTitle().toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/\-+/g, "-");
+        var fileName = StyleManager.slugify(StyleManager.getProjectTitle());
         if (StyleManager.getProjectVersion()) {
             fileName += "." + StyleManager.getProjectVersion()
         }

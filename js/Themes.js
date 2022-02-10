@@ -1,6 +1,8 @@
 class Themes {
 
     themes = {
+        "Pro dívky": "mladi-na-kridlech.json",
+        "Budovatelský": "pribehy-z-jizniho-mesta.json",
         "Theme 1": "theme01.json",
         "Theme 2": "theme02.json",
         "Theme 3": "theme03.json"

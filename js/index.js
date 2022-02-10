@@ -158,6 +158,12 @@ document.querySelector("#form h3").dispatchEvent(new Event("click"));
 new Accordeon(document.getElementById("global"));
 document.querySelector("#global h3").dispatchEvent(new Event("click"));
 
+// Init theme selector:
+var t = new Themes(
+    document.getElementById("themes-source"),
+    document.querySelector("#theme-item-source > figure"),
+    document.getElementById("jsonApply")
+);
 
 /*
 function dataURItoBlob(dataURI,mime) {

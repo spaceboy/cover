@@ -5,20 +5,24 @@
         <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
         <title>Cover generator</title>
         <link rel="shortcut icon" href="favicon.ico?v=1">
-        <link rel="stylesheet" type="text/css" href="css/index.css?v=2">
+        <link rel="stylesheet" type="text/css" href="css/index.css?v=3">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/fontawesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/solid.min.css">
         <script src="js/dom-to-image.js"></script>
+        <script src="js/Elem.js"></script>
         <script src="js/FileUpload.js"></script>
         <script src="js/InputHelper.js"></script>
         <script src="js/Transfer.js?v=2"></script>
         <script src="js/Panel.js"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
-        <script src="js/StyleManager.js?v=4"></script>
+        <script src="js/StyleManager.js?v=5"></script>
         <script src="js/FontManager.js"></script>
         <script src="js/Accordeon.js?v=1"></script>
+        <script src="js/Themes.js"></script>
         <script src="js/Events.js?v=2"></script>
+        <!--script src="js/pickr.min.js"></script-->
+        <!--link rel="stylesheet" type="text/css" href="css/pickr/pickr.min.css"-->
     </head>
     <body>
         <script>
@@ -44,11 +48,11 @@
         <div id="splash">
             <p>Moment, prosím&hellip;</p>
         </div>
-        <div class="page">
-            <div id="header">
-                <button id="download"><i class="fas fa-download"></i> Download image</button>
-                <h1>Generátor <span>typografické</span> obálky</h1>
-            </div>
+        <div id="header">
+            <button id="download"><i class="fas fa-download"></i> Download image</button>
+            <h1>Generátor <span>typografické</span> obálky</h1>
+        </div>
+        <div class="page" id="page-editor">
             <div id="fp-wrapper">
                 <div id="frontpage">
                     <div id="overlay" style="background-size: cover; background-repeat: no-repeat; background-color: transparent; background-position-x: center; background-position-y: center; display: none; opacity: .1; z-index: 100;"></div>
@@ -187,17 +191,32 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="attributes-fontSize">Velikost písma</label>
+                                    <label for="attributes-rotate">Rotace textu</label>
                                 </th>
                                 <td>
-                                    <input data-target="div.text" data-type="size" id="attributes-fontSize" name="fontSize">
+                                    <input data-target="div.text" id="attributes-rotate" name="rotate">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-fontFamily">Řez písma</label>
+                                </th>
+                                <td>
+                                    <select data-target="div.text" id="attributes-fontFamily" name="fontFamily">
+                                        <option value="">[neurčeno]</option>
+                                        <option value="serif">serif</option>
+                                        <option value="sans-serif">sans serif</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th>
                                     <label for="attributes-color">Barva písma</label>
                                 </th>
-                                <td>
+                                <td class="color-picker">
                                     <input data-target="div.text" id="attributes-color" name="color">
                                 </td>
                             </tr>
@@ -205,24 +224,16 @@
                                 <th>
                                     <label for="attributes-backgroundColorSpan">Barva podkladu textu</label>
                                 </th>
-                                <td>
+                                <td class="color-picker">
                                     <input data-target="div.text span" data-attribute="backgroundColor" id="attributes-backgroundColorSpan" name="backgroundColorSpan">
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="attributes-lineHeight">Výška řádku</label>
+                                    <label for="attributes-fontSize">Velikost písma</label>
                                 </th>
                                 <td>
-                                    <input data-target="div.text" data-type="size" id="attributes-lineHeight" name="lineHeight">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="attributes-textShadow">Text shadow</label>
-                                </th>
-                                <td>
-                                    <input data-target="div.text" id="attributes-textShadow" name="textShadow">
+                                    <input data-target="div.text" data-type="size" id="attributes-fontSize" name="fontSize">
                                 </td>
                             </tr>
                             <tr>
@@ -251,22 +262,30 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="attributes-fontFamily">Řez písma</label>
+                                    <label for="attributes-fontVariant">Varianta písma</label>
                                 </th>
                                 <td>
-                                    <select data-target="div.text" id="attributes-fontFamily" name="fontFamily">
-                                        <option value="">[neurčeno]</option>
-                                        <option value="serif">serif</option>
-                                        <option value="sans-serif">sans serif</option>
+                                    <select data-target="div.text" id="attributes-fontVariant" name="fontVariant">
+                                        <option value="">--</option>
+                                        <option value="normal">normální</option>
+                                        <option value="small-caps">small-caps</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="attributes-rotate">Rotace textu</label>
+                                    <label for="attributes-lineHeight">Výška řádku</label>
                                 </th>
                                 <td>
-                                    <input data-target="div.text" id="attributes-rotate" name="rotate">
+                                    <input data-target="div.text" data-type="size" id="attributes-lineHeight" name="lineHeight">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="attributes-textShadow">Text shadow</label>
+                                </th>
+                                <td>
+                                    <input data-target="div.text" id="attributes-textShadow" name="textShadow">
                                 </td>
                             </tr>
                         </tbody>
@@ -294,7 +313,7 @@
                                 <th>
                                     <label for="attributes-backgroundColorBox">Podkladová barva</label>
                                 </th>
-                                <td>
+                                <td class="color-picker">
                                     <input data-attribute="backgroundColor" id="attributes-backgroundColorBox" name="backgroundColorBox">
                                 </td>
                             </tr>
@@ -722,7 +741,7 @@
                                 <th>
                                     <label for="background-backgroundColor">Podkladová barva</label>
                                 </th>
-                                <td>
+                                <td class="color-picker">
                                     <input id="background-backgroundColor" name="backgroundColor">
                                 </td>
                             </tr>
@@ -831,7 +850,7 @@
                                 <th>
                                     <label for="form-overlay-backgroundColor">Podkladová barva</label>
                                 </th>
-                                <td>
+                                <td class="color-picker">
                                     <input id="form-overlay-backgroundColor" name="backgroundColor">
                                 </td>
                             </tr>
@@ -996,7 +1015,8 @@
         </div>
 
         <div class="clear"></div>
-        <div id="json-wrapper">
+        <div class="page" id="page-source">
+            <h2>Cover source code</h2>
             <button id="jsonShow"><i class="fas fa-file-code"></i> show source code</button>
             <button id="jsonApply"><i class="fas fa-file-upload"></i> apply source code</button>
             <button id="jsonDownload"><i class="fas fa-download"></i> download source code</button>
@@ -1005,11 +1025,100 @@
             <textarea id="jsonText"></textarea>
         </div>
 
+        <div class="clear"></div>
+        <div class="page" id="page-themes">
+            <h2>Themes</h2>
+            <div class="clear"></div>
+            <div id="themes-source"></div>
+        </div>
+
+        <div class="clear"></div>
+        <div id="footer">
+            <div class="page" id="page-footer">
+                <p>Footer</p>
+            </div>
+        </div>
+
         <div id="panel-source" class="wrapper" data-title="" style="background: #c0c0c0; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1; display: none;">
-            <div class="text" style="font-family: serif; font-size: 20px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
+            <div class="text" style="font-family: serif; font-size: 20px; font-style: normal; font-variant: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                 <span>Nový panel</span>
             </div>
         </div>
-        <script src="js/index.js?v=1"></script>
+        <div id="theme-item-source" style="display: none;">
+            <figure class="theme">
+                <figcaption><i class="fas fa-image"></i></figcaption>
+                <h3>Theme name</h3>
+            </figure>
+        </div>
+        <script src="js/index.js?v=2"></script>
+        <div class="example"></div>
+
+
+        <!--style>
+            .color-picker {
+                position: relative;
+            }
+            .color-picker > .pickr {
+                border-radius: 0.3em;
+                height: 1.6em;
+                position: absolute;
+                right: 0;
+                top: .2em;
+            }
+            .color-picker > .pickr .pcr-button {
+                height: 1.5em;
+                width: 2em;
+            }
+        </style>
+        <script>
+            for (var el of document.querySelectorAll(".color-picker > input")) {
+                var s = new Elem().create("span").attr("class", "color-picker-button").after(el).get();
+                new Pickr({
+                    el: s,//".color-picker-button",
+                    default: '#42445A', // default color
+                    position: 'middle',
+                    swatches: [
+                        '#F44336',
+                        '#E91E63',
+                        '#9C27B0',
+                        '#673AB7',
+                        '#3F51B5',
+                        '#2196F3',
+                        '#03A9F4',
+                        '#00BCD4',
+                        '#009688',
+                        '#4CAF50',
+                        '#8BC34A',
+                        '#CDDC39',
+                        '#FFEB3B',
+                        '#FFC107'
+                    ],
+                    components: {
+                        preview: true,
+                        opacity: true,
+                        hue: true,
+                        interaction: {
+                            "hex": false, //true,
+                            "rgba": false, //true,
+                            "hsva": false, //true,
+                            "input": true,
+                            "clear": false, //true,
+                            "save": true
+                        }
+                    },
+                    onSave: function (col, e) {
+                        console.log("onSave");
+                        console.log(col);
+                        //console.log(col.toHEX());
+                        //console.log(col.toRGBA());
+                        //console.log(el);
+                        var a = col.toRGBA();
+                        console.log(
+                            "rgba(" + Math.round(a[0]) + ", " + Math.round(a[1]) + ", " + Math.round(a[2]) + ", " + a[3] + ")"
+                        )
+                    }
+                });
+            }
+        </script-->
     </body>
 </html>

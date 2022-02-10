@@ -8,7 +8,7 @@ class Themes {
 
     applyButton;
 
-    templateDir = "/themes/";
+    templateDir = "themes/";
 
     buffer;
 

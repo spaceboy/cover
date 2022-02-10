@@ -71,21 +71,3 @@ class Elem {
         return this;
     }
 }
-
-/*
-// Example:
-new Elem()
-    .create("p")
-    .attr("foo", "FOO")
-    .html("append")
-    .append(document.getElementById("header"))
-    .clone()
-    .attr("foo", "BAR")
-    .html("before")
-    .before(document.getElementById("header"))
-    .clone()
-    .attr("foo", "BAZ")
-    .html("after")
-    .after(document.getElementById("header"));
-
-*/

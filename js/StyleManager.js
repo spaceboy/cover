@@ -299,6 +299,7 @@ class StyleManager {
     }
 
     uploadJson () {
+        document.getElementById("splash").display = "block";
         var fileUpload = document.createElement("input");
         fileUpload.type = "file";
         fileUpload.accept = "text/json";
@@ -319,10 +320,12 @@ class StyleManager {
                         function (text) {
                             t.textarea.value = text;
                             t.applyStyle();
+                            document.getElementById("splash").display = "none";
                         }
                     )
                     .catch(
                         function (ex) {
+                            document.getElementById("splash").display = "none";
                         }
                     );
             }

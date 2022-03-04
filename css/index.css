@@ -103,6 +103,18 @@ div.page#page-editor {
     padding: 0;
 }
 
+div.page#page-editor .panel-select-buttons {
+    margin: 0;
+    padding: 0 .5em;
+}
+div.page#page-editor .panel-select-button {
+    cursor: pointer;
+    height: 2em;
+    overflow: hidden;
+    text-align: center;
+    width: 3em;
+}
+
 #themes-source {
     background: #fff;
     border: 1px solid #888;
@@ -238,4 +250,11 @@ h3.accordeon:hover {
 }
 #themes-source .theme figcaption {
     font-size: 400%;
+}
+
+.col-green {
+    color: green;
+}
+.col-red {
+    color: red;
 }

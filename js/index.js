@@ -100,15 +100,16 @@ InputHelper.init(document.getElementById("attributes"));
 InputHelper.init(document.getElementById("form-overlay"));
 InputHelper.init(document.getElementById("background"));
 
-// Select panel:
+// Select/move/remove/add panel:
 document.getElementById("frontpage").addEventListener("click", Panel.selectByClick);
 document.getElementById("panel-select-panel").addEventListener("change", Panel.selectBySelector);
+document.getElementById("panel-select-move-up").addEventListener("click", Panel.panelMoveUp)
+document.getElementById("panel-select-move-dn").addEventListener("click", Panel.panelMoveDn)
+document.getElementById("panel-select-add").addEventListener("click", Panel.panelAdd)
+document.getElementById("panel-select-remove").addEventListener("click", Panel.panelRemove)
 
 // Panel change attribute:
 document.querySelector("#form form.attributes").addEventListener("change", Panel.update);
-
-// Add panel:
-document.getElementById("panel-add-panel").addEventListener("click", Panel.addPanel);
 
 // Global change background attribute:
 document.getElementById("background").addEventListener("change", Events.changeBackground);

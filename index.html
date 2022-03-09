@@ -6,11 +6,11 @@
         <meta http-equiv="X-Clacks-Overhead" content="Слава Україні! Героям слава!">
         <title>Cover generator</title>
         <link rel="shortcut icon" href="favicon.ico?v=1">
-        <link rel="stylesheet" type="text/css" href="css/index.css?v=4">
+        <link rel="stylesheet" type="text/css" href="css/index.css?v=5">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/fontawesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/solid.min.css">
         <script src="js/dom-to-image.js"></script>
-        <script src="js/Elem.js"></script>
+        <script src="js/Elem.js?v=1"></script>
         <script src="js/FileUpload.js"></script>
         <script src="js/InputHelper.js"></script>
         <script src="js/Transfer.js?v=2"></script>
@@ -1077,56 +1077,38 @@
                 height: 1.5em;
                 width: 2em;
             }
-        </style>
+        </style-->
         <script>
             for (var el of document.querySelectorAll(".color-picker > input")) {
-                var s = new Elem().create("span").attr("class", "color-picker-button").after(el).get();
-                new Pickr({
-                    el: s,//".color-picker-button",
-                    default: '#42445A', // default color
-                    position: 'middle',
-                    swatches: [
-                        '#F44336',
-                        '#E91E63',
-                        '#9C27B0',
-                        '#673AB7',
-                        '#3F51B5',
-                        '#2196F3',
-                        '#03A9F4',
-                        '#00BCD4',
-                        '#009688',
-                        '#4CAF50',
-                        '#8BC34A',
-                        '#CDDC39',
-                        '#FFEB3B',
-                        '#FFC107'
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            "hex": false, //true,
-                            "rgba": false, //true,
-                            "hsva": false, //true,
-                            "input": true,
-                            "clear": false, //true,
-                            "save": true
-                        }
-                    },
-                    onSave: function (col, e) {
-                        console.log("onSave");
-                        console.log(col);
-                        //console.log(col.toHEX());
-                        //console.log(col.toRGBA());
-                        //console.log(el);
-                        var a = col.toRGBA();
-                        console.log(
-                            "rgba(" + Math.round(a[0]) + ", " + Math.round(a[1]) + ", " + Math.round(a[2]) + ", " + a[3] + ")"
+                (new Elem(el)).addClass("color-picker-input")
+                var s = new Elem("input")
+                    .attr({
+                        "class": "color-picker-button",
+                        "type": "color",
+                        "data-skip": "true"
+                    })
+                    .after(el)
+                    .get();
+                s.addEventListener(
+                    "change",
+                    function (e) {
+                        e.stopPropagation();
+                        var t = e.currentTarget;
+                        var i = t.parentNode.querySelector(".color-picker-input");
+                        i.value = t.value;
+                        i.dispatchEvent(
+                            new Event(
+                                "change",
+                                {
+                                    "bubbles": true,
+                                    "currentTarget": i,
+                                    "target": i
+                                }
+                            )
                         )
                     }
-                });
+                );
             }
-        </script-->
+        </script>
     </body>
 </html>

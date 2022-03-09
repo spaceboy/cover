@@ -258,3 +258,20 @@ h3.accordeon:hover {
 .col-red {
     color: red;
 }
+
+
+/* Colorpicker styles: */
+.color-picker-input {
+    width: 13em;
+}
+.color-picker-button {
+    border: 1px solid black;
+    border-radius: 25%;
+    cursor: pointer;
+    float: right;
+    padding: 0;
+    height: compute( 1.8em - 2px);
+    margin: 0 0 0 3px;
+    overflow: hidden;
+    width: 1.8em;
+}

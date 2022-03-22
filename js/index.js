@@ -159,6 +159,11 @@ document.querySelector("#form h3").dispatchEvent(new Event("click"));
 new Accordeon(document.getElementById("global"));
 document.querySelector("#global h3").dispatchEvent(new Event("click"));
 
+// Init colorpickers:
+for (var el of document.querySelectorAll(".color-picker > input")) {
+    new ColorPicker(el);
+}
+
 // Init theme selector:
 var t = new Themes(
     document.getElementById("themes-source"),
@@ -166,29 +171,6 @@ var t = new Themes(
     document.getElementById("jsonApply")
 );
 
-/*
-function dataURItoBlob(dataURI,mime) {
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs
-
-    var byteString = window.atob(dataURI);
-
-    // separate out the mime component
-
-
-    // write the bytes of the string to an ArrayBuffer
-    //var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(byteString.length);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    // write the ArrayBuffer to a blob, and you're done
-    var blob = new Blob([ia], { type: mime });
-
-    return blob;
-}
-*/
 /*
 document.getElementById("share-fb").addEventListener("click", function (e) {
     console.log("click");

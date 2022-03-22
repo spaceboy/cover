@@ -1,5 +1,9 @@
 class Panel {
 
+    static listSizeMin = 3
+
+    static listItemsMin = 1
+
     static getActiveSelectOption () {
         let s = document.getElementById("panel-select-panel");
         let i = s.selectedIndex;
@@ -79,7 +83,7 @@ class Panel {
         e.preventDefault();
         var s = document.getElementById("panel-select-panel");
         var l = s.options.length;
-        if (l < 2) {
+        if (l <= Panel.listItemsMin) {
             return;
         }
         var o = Panel.getActiveSelectOption();
@@ -89,11 +93,23 @@ class Panel {
         if (!confirm("Remove active panel?")) {
             return;
         }
+
+        // Remove panel:
         var p = document.querySelector(`#frontpage div.wrapper[data-title="${o.value}"]`);
+
+        // Find next|prev panel:
+        var panelActive = p.nextElementSibling;
+        panelActive = (panelActive ? panelActive : p.previousElementSibling);
+
         s.removeChild(o);
         p.parentNode.removeChild(p);
-        if (l > 3) {
+        if (l > Panel.listSizeMin) {
             s.size = --l;
+        }
+
+        // Select another panel:
+        if (panelActive) {
+            Panel.selectPanel(panelActive);
         }
     }
 
@@ -112,6 +128,7 @@ class Panel {
     // Create new panel:
     static addPanelAfter (el) {
         // Create and place new panel:
+        var name = "Panel " + Panel.getNewPanelNumber();
         panelActive = (
             el.nextSibling
             ? document.getElementById("frontpage").insertBefore(
@@ -123,9 +140,11 @@ class Panel {
             )
         );
         panelActive.style.display = "";
+        panelActive.removeAttribute("id");
+        panelActive.setAttribute("data-title", name);
+
         // Create and place option in panel select:
         var o = document.createElement("option");
-        var name = "Panel " + document.querySelectorAll("#frontpage div.wrapper").length;
         o.value = name;
         o.text = name;
         var select = document.getElementById("panel-select-panel");
@@ -135,8 +154,12 @@ class Panel {
         } else {
             select.appendChild(o);
         }
-        panelActive.setAttribute("data-title", name);
-        select.size = ++(select.size);
+
+        // Recompute select size:
+        if (select.querySelectorAll("option").length > Panel.listSizeMin) {
+            select.size = ++(select.size);
+        }
+
         // Switch to new panel:
         Panel.selectPanel(panelActive);
     }
@@ -158,5 +181,16 @@ class Panel {
             return;
         }
         Transfer.input2attr(e.target, panelActive);
+    }
+
+    static getNewPanelNumber () {
+        var max = 0, n;
+        for (el of document.querySelectorAll("#frontpage div.wrapper")) {
+            n = parseInt(el.getAttribute("data-title").replace(/[^0-9]/g, ""));
+            if (n > max) {
+                max = n;
+            }
+        }
+        return ++max;
     }
 }

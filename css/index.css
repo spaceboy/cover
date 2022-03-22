@@ -105,6 +105,9 @@ div.page#page-editor {
     padding: 0;
 }
 
+div.page#page-editor #panel-select-panel {
+    scrollbar-width: none;
+}
 div.page#page-editor .panel-select-buttons {
     margin: 0;
     padding: 0 .5em;

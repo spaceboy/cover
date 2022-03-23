@@ -34,6 +34,19 @@ class StyleManager {
         }
     }
 
+    /**
+     * Set default values of form elements (where declared in data-default attribute).
+     * When target element is declared, apply the defaults to canvas.
+     */
+    static setDefaultValues (form, target) {
+        for (var i of form.querySelectorAll("*[data-default]")) {
+            i.value = i.getAttribute("data-default");
+        }
+        if (target) {
+            Transfer.form2attr(form, target);
+        }
+    }
+
     attr2json (el, form) {
         var data = new FormData(form);
         var json = {};
@@ -273,6 +286,8 @@ class StyleManager {
         // Load overlay:
         if (data.hasOwnProperty("overlay")) {
             this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), document.getElementById("overlay"));
+        } else {
+            StyleManager.setDefaultValues(document.getElementById("form-overlay"), document.getElementById("overlay"));
         }
 
         // Project settings:
@@ -287,6 +302,8 @@ class StyleManager {
                 document.getElementById("project-settings-size").value = data["project"]["size"];
                 scaleManager.setSize();
             }
+        } else {
+            StyleManager.setDefaultValues(document.getElementById("project-settings"));
         }
     }
 

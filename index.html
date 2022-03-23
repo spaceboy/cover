@@ -17,7 +17,7 @@
         <script src="js/Panel.js?v=2"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
-        <script src="js/StyleManager.js?v=6"></script>
+        <script src="js/StyleManager.js?v=7"></script>
         <script src="js/FontManager.js"></script>
         <script src="js/Accordeon.js?v=1"></script>
         <script src="js/ColorTools.js"></script>
@@ -593,7 +593,7 @@
                                     <label for="project-settings-title">Title</label>
                                 </th>
                                 <td>
-                                    <input id="project-settings-title" value="untitled">
+                                    <input id="project-settings-title" value="untitled" data-default="untitled">
                                 </td>
                             </tr>
                             <tr>
@@ -601,7 +601,7 @@
                                     <label for="project-settings-version">Version</label>
                                 </th>
                                 <td>
-                                    <input id="project-settings-version" lang="en-US" type="number" value="1.00" step="0.01" onchange="(function (el) {el.value = parseFloat(el.value).toFixed(2);})(this);">
+                                    <input id="project-settings-version" lang="en-US" type="number" value="1.00" step="0.01" onchange="(function (el) {el.value = parseFloat(el.value).toFixed(2);})(this);" data-default="1.00">
                                 </td>
                             </tr>
                             <tr>
@@ -609,7 +609,7 @@
                                     <label for="project-settings-size">Cover size</label>
                                 </th>
                                 <td>
-                                    <select id="project-settings-size" name="size">
+                                    <select id="project-settings-size" name="size" data-default="1000×1600">
                                         <option value="500×800">Preview (500×800)</option>
                                         <option value="625×1000">Hobby (625×1000)</option>
                                         <option value="1000×1600" selected>Minimal (1000×1600)</option>
@@ -850,7 +850,7 @@
                                     <label for="form-overlay-display">Zobrazit překryv</label>
                                 </th>
                                 <td>
-                                    <select id="form-overlay-display" name="display">
+                                    <select id="form-overlay-display" name="display" data-default="none">
                                         <option value="block">ANO</option>
                                         <option value="none">NE</option>
                                     </select>
@@ -861,7 +861,7 @@
                                     <label for="form-overlay-backgroundColor">Podkladová barva</label>
                                 </th>
                                 <td class="color-picker">
-                                    <input id="form-overlay-backgroundColor" name="backgroundColor">
+                                    <input id="form-overlay-backgroundColor" name="backgroundColor" data-default="transparent">
                                 </td>
                             </tr>
                             <tr>
@@ -869,7 +869,7 @@
                                     <label for="form-overlay-backgroundImage">Podklad (obrázek)</label>
                                 </th>
                                 <td>
-                                    <input id="form-overlay-backgroundImage" name="backgroundImage">
+                                    <input id="form-overlay-backgroundImage" name="backgroundImage" data-default="">
                                 </td>
                             </tr>
                             <tr>
@@ -883,7 +883,7 @@
                                     <label for="form-overlay-backgroundRepeat">Podklad (opakování)</label>
                                 </th>
                                 <td>
-                                    <select id="form-overlay-backgroundRepeat" name="backgroundRepeat">
+                                    <select id="form-overlay-backgroundRepeat" name="backgroundRepeat" data-default="no-repeat">
                                         <option value="no-repeat">no-repeat</option>
                                         <option value="repeat">repeat</option>
                                         <option value="repeat-x">repeat-x</option>
@@ -899,7 +899,7 @@
                                     <label for="form-overlay-backgroundSize">Podklad (velikost)</label>
                                 </th>
                                 <td>
-                                    <select class="helper" id="form-overlay-backgroundSize" name="backgroundSize">
+                                    <select class="helper" id="form-overlay-backgroundSize" name="backgroundSize" data-default="auto">
                                         <option value="auto">auto</option>
                                         <option value="contain">contain</option>
                                         <option value="cover">cover</option>
@@ -916,7 +916,7 @@
                                     <label for="form-overlay-backgroundPositionX">Podklad (pozice X)</label>
                                 </th>
                                 <td>
-                                    <select class="helper" id="form-overlay-backgroundPositionX" name="backgroundPositionX">
+                                    <select class="helper" id="form-overlay-backgroundPositionX" name="backgroundPositionX" data-default="">
                                         <option value="">[zvolte]</option>
                                         <option value="center">center</option>
                                         <option value="inherit">inherit</option>
@@ -933,7 +933,7 @@
                                     <label for="form-overlay-backgroundPositionY">Podklad (pozice Y)</label>
                                 </th>
                                 <td>
-                                    <select class="helper" id="form-overlay-backgroundPositionY" name="backgroundPositionY">
+                                    <select class="helper" id="form-overlay-backgroundPositionY" name="backgroundPositionY" data-default="">
                                         <option value="">[zvolte]</option>
                                         <option value="bottom">bottom</option>
                                         <option value="center">center</option>
@@ -950,7 +950,7 @@
                                     <label for="form-overlay-opacity">Neprůhlednost</label>
                                 </th>
                                 <td>
-                                    <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01">
+                                    <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01" data-default="1">
                                 </td>
                             </tr>
                             <tr>
@@ -958,7 +958,7 @@
                                     <label for="form-overlay-zIndex">z-index</label>
                                 </th>
                                 <td>
-                                    <input id="form-overlay-zIndex" name="zIndex">
+                                    <input id="form-overlay-zIndex" name="zIndex" data-default="100">
                                 </td>
                             </tr>
                         </tbody>

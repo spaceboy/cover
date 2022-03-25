@@ -97,7 +97,6 @@ function getValue (el) {
 
 // Apply input helper:
 InputHelper.init(document.getElementById("attributes"));
-InputHelper.init(document.getElementById("form-overlay"));
 InputHelper.init(document.getElementById("background"));
 
 // Select/move/remove/add panel:
@@ -117,17 +116,14 @@ document.getElementById("background").addEventListener("change", Events.changeBa
 // Load background attributes from image:
 Transfer.attr2form(document.getElementById("frontpage"), document.getElementById("background"));
 
-// Global change background attribute:
-document.getElementById("form-overlay").addEventListener("change", Events.changeOverlay);
-
-// Overlay background image:
-document.getElementById("form-overlay-button").addEventListener("click", Events.clickOverlayButton);
-
 // Overlay clicked:
-document.getElementById("overlay").addEventListener("click", Events.clickOverlay);
+//document.getElementById("overlay").addEventListener("click", Events.clickOverlay);
+
+// Init overlay manager:
+Overlay.init();
 
 // Init overlay form:
-Transfer.attr2form(document.getElementById("overlay"), document.getElementById("form-overlay"));
+//Transfer.attr2form(document.getElementById("overlay"), document.getElementById("form-overlay"));
 
 // Add font:
 document.querySelector("#google-fonts input[name='add']").addEventListener("click", Events.clickGoogleFontAdd);

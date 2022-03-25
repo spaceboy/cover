@@ -47,7 +47,7 @@ class StyleManager {
         }
     }
 
-    attr2json (el, form) {
+    static attr2json (el, form) {
         var data = new FormData(form);
         var json = {};
         for (var a of data.entries()) {
@@ -165,7 +165,7 @@ class StyleManager {
         var panelActiveOriginal = panelActive;
         for (var el of document.querySelectorAll("#frontpage > div.wrapper")) {
             Panel.selectPanel(el);
-            var panel = this.attr2json(el, document.getElementById("attributes"));
+            var panel = StyleManager.attr2json(el, document.getElementById("attributes"));
             panel["panelTitle"] = el.getAttribute("data-title");
             panel["panelFilters"] = this.filter2json(document.getElementById("filters-panel"))
             panels.push(panel);
@@ -184,29 +184,32 @@ class StyleManager {
             fontsUpload[el.getAttribute("data-name")] = el.innerHTML;
         }
         // Result:
-        var style = {
-            "about": [
-                "This is data file for free to use e-book cover generator",
-                "https://spaceboy.github.io/cover/",
-                "Developed by Spaceboy.",
-                "Before you start editing this file, make sure you know what you are doing.",
-            ],
-            "project": {
-                "title": StyleManager.getProjectTitle(),
-                "version": StyleManager.getProjectVersion(),
-                "size": StyleManager.getProjectSize(),
-                "revisionDate": (new Date()).toUTCString()
+        this.textarea.value = JSON.stringify(
+            {
+                "about": [
+                    "This is data file for free to use e-book cover generator",
+                    "https://spaceboy.github.io/cover/",
+                    "Developed by Spaceboy.",
+                    "Before you start editing this file, make sure you know what you are doing.",
+                ],
+                "project": {
+                    "title": StyleManager.getProjectTitle(),
+                    "version": StyleManager.getProjectVersion(),
+                    "size": StyleManager.getProjectSize(),
+                    "revisionDate": (new Date()).toUTCString()
+                },
+                "panels": panels,
+                "background": StyleManager.attr2json(frontpage, document.getElementById("background")),
+                "filters": this.filter2json(document.getElementById("filters")),
+                "overlays": Overlay.getJson(),
+                "fonts": {
+                    "google": fontsGoogle,
+                    "upload": fontsUpload
+                }
             },
-            "panels": panels,
-            "background": this.attr2json(frontpage, document.getElementById("background")),
-            "filters": this.filter2json(document.getElementById("filters")),
-            "overlay": this.attr2json(document.getElementById("overlay"), document.getElementById("form-overlay")),
-            "fonts": {
-                "google": fontsGoogle,
-                "upload": fontsUpload
-            }
-        };
-        this.textarea.value = JSON.stringify(style, null, 4);
+            null,
+            4
+        );
     }
 
     loadFormFilter (data, form, target) {
@@ -283,11 +286,23 @@ class StyleManager {
         // Load background:
         this.#loadFormElement(data["background"], document.getElementById("background"), frontpage);
 
-        // Load overlay:
+        // Remove existing overlays:
+        for (var el of document.querySelectorAll("#overlay-select-overlay option")) {
+            el.parentNode.removeChild(el);
+        }
+        for (var el of document.querySelectorAll("#frontpage div.overlay")) {
+            el.parentNode.removeChild(el);
+        }
+
+        // Load overlay(s):
         if (data.hasOwnProperty("overlay")) {
-            this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), document.getElementById("overlay"));
-        } else {
-            StyleManager.setDefaultValues(document.getElementById("form-overlay"), document.getElementById("overlay"));
+            // Single overlay (old method):
+            this.#loadFormElement(data["overlay"], document.getElementById("form-overlay"), Overlay.createOverlay());
+        } else if (data.hasOwnProperty("overlays")) {
+            // Multiple overlay (new method):
+            for (var el in data["overlays"]) {
+                this.#loadFormElement(data["overlays"][el], document.getElementById("form-overlay"), Overlay.createOverlay());
+            }
         }
 
         // Project settings:

@@ -1,3 +1,5 @@
+// requires Elem class
+
 class Panel {
 
     static listSizeMin = 3
@@ -22,26 +24,6 @@ class Panel {
         );
     }
 
-    static swapNodes (n1, n2) {
-        // Find parents:
-        var p1 = n1.parentNode;
-        var p2 = n2.parentNode;
-        if (!p1 || !p2 || p1.isEqualNode(n2) || p2.isEqualNode(n1)) {
-            return;
-        }
-        // Create placeholders:
-        var ph1 = document.createElement("span");
-        p1.insertBefore(ph1, n1);
-        var ph2 = document.createElement("span");
-        p2.insertBefore(ph2, n2);
-        // Move nodes:
-        p1.insertBefore(n2, ph1);
-        p2.insertBefore(n1, ph2);
-        // Remove placeholders:
-        p1.removeChild(ph1);
-        p2.removeChild(ph2);
-    }
-
     static panelMoveUp (e) {
         e.preventDefault();
         let s = document.getElementById("panel-select-panel");
@@ -49,11 +31,11 @@ class Panel {
         if (i < 1) {
             return;
         }
-        Panel.swapNodes(
+        Elem.swapNodes(
             document.querySelector(`#frontpage div.wrapper[data-title="${s.options[i].value}"]`),
             document.querySelector(`#frontpage div.wrapper[data-title="${s.options[i - 1].value}"]`)
         );
-        Panel.swapNodes(s.options[i], s.options[i - 1]);
+        Elem.swapNodes(s.options[i], s.options[i - 1]);
     }
 
     static panelMoveDn (e) {
@@ -63,11 +45,11 @@ class Panel {
         if (i < 0 || i === (s.options.length - 1)) {
             return;
         }
-        Panel.swapNodes(
+        Elem.swapNodes(
             document.querySelector(`#frontpage div.wrapper[data-title="${s.options[i + 1].value}"]`),
             document.querySelector(`#frontpage div.wrapper[data-title="${s.options[i].value}"]`)
         );
-        Panel.swapNodes(s.options[i + 1], s.options[i]);
+        Elem.swapNodes(s.options[i + 1], s.options[i]);
     }
 
     static panelAdd (e) {

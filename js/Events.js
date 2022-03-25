@@ -132,16 +132,6 @@ class Events {
         inputImage.click();
     }
 
-    static clickOverlayButton (e) {
-        e.preventDefault();
-        backgroundSubject = document.getElementById("overlay");
-        inputImage.click();
-    }
-
-    static changeOverlay (e) {
-        Transfer.input2attr(e.target, document.getElementById("overlay"));
-    }
-
     static clickOverlay () {
         var checkbox = document.getElementById("form-overlay-display");
         checkbox.checked = false;

@@ -38,7 +38,7 @@ h1, h2, h3 {
     z-index: 1000;
 }
 
-#overlay {
+.overlay {
     background-color: transparent;
     background-repeat: no-repeat;
     display: none;
@@ -112,7 +112,7 @@ div.page#page-editor .panel-select-buttons {
     margin: 0;
     padding: 0 .5em;
 }
-div.page#page-editor .panel-select-button {
+div.page#page-editor .panel-select-button, .overlay-select-button {
     cursor: pointer;
     height: 2em;
     overflow: hidden;

@@ -6,24 +6,25 @@
         <meta http-equiv="X-Clacks-Overhead" content="Слава Україні! Героям слава!">
         <title>Cover generator</title>
         <link rel="shortcut icon" href="favicon.ico?v=1">
-        <link rel="stylesheet" type="text/css" href="css/index.css?v=7">
+        <link rel="stylesheet" type="text/css" href="css/index.css?v=8">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/fontawesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/fa/styles/solid.min.css">
         <script src="js/dom-to-image.js"></script>
-        <script src="js/Elem.js?v=1"></script>
+        <script src="js/Elem.js?v=2"></script>
         <script src="js/FileUpload.js"></script>
         <script src="js/InputHelper.js"></script>
+        <script src="js/Overlay.js"></script>
         <script src="js/Transfer.js?v=2"></script>
-        <script src="js/Panel.js?v=2"></script>
+        <script src="js/Panel.js?v=3"></script>
         <script src="js/SizeElement.js"></script>
         <script src="js/ScaleManager.js"></script>
-        <script src="js/StyleManager.js?v=7"></script>
+        <script src="js/StyleManager.js?v=8"></script>
         <script src="js/FontManager.js"></script>
         <script src="js/Accordeon.js?v=1"></script>
         <script src="js/ColorTools.js"></script>
         <script src="js/ColorPicker.js"></script>
         <script src="js/Themes.js?v=3"></script>
-        <script src="js/Events.js?v=2"></script>
+        <script src="js/Events.js?v=3"></script>
         <!--script src="js/pickr.min.js"></script-->
         <!--link rel="stylesheet" type="text/css" href="css/pickr/pickr.min.css"-->
     </head>
@@ -58,7 +59,6 @@
         <div class="page" id="page-editor">
             <div id="fp-wrapper">
                 <div id="frontpage">
-                    <div id="overlay" style="background-size: cover; background-repeat: no-repeat; background-color: transparent; background-position-x: center; background-position-y: center; display: none; opacity: .1; z-index: 100;"></div>
                     <div class="wrapper" data-title="Panel 1" style="background: #ccc; background-size: contain; background-repeat: no-repeat; color: #000000; flex-grow: 0; z-index: 1;">
                         <div class="text" style="color: #000000; font-family: serif; font-size: 30px; font-style: normal; font-weight: bold; line-height: 1.4em; padding-bottom: .5em; padding-left: .5em; padding-right: .5em; padding-top: .5em; text-align: center; ">
                             <span style="background-color: transparent;">Jméno Autora</span>
@@ -842,126 +842,26 @@
                 </form>
 
                 <form id="form-overlay">
-                    <h3 data-accordeon="table-overlay-global">Překryv</h3>
+                    <h3 data-accordeon="table-overlay-global">Překryvy</h3>
                     <table id="table-overlay-global">
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th>
-                                    <label for="form-overlay-display">Zobrazit překryv</label>
+                                    <label for="overlay-select">Vrstvy překryvu</label>
                                 </th>
-                                <td>
-                                    <select id="form-overlay-display" name="display" data-default="none">
-                                        <option value="block">ANO</option>
-                                        <option value="none">NE</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundColor">Podkladová barva</label>
-                                </th>
-                                <td class="color-picker">
-                                    <input id="form-overlay-backgroundColor" name="backgroundColor" data-default="transparent">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundImage">Podklad (obrázek)</label>
-                                </th>
-                                <td>
-                                    <input id="form-overlay-backgroundImage" name="backgroundImage" data-default="">
-                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <th></th>
                                 <td>
-                                    <button id="form-overlay-button">Načíst obrázek</button>
+                                    <select name="overlay-select" id="overlay-select-overlay" data-skip="true" size="3"></select>
+                                    <br />
+                                    <button id="overlay-button-add" class="overlay-select-button" title="Přidá vrstvu překryvu" data-skip="true"><i class="fas fa-plus-circle col-green"></i></button>
+                                    <button id="overlay-button-remove" class="overlay-select-button" title="Odstraní vrstvu překryvu" data-skip="true"><i class="fas fa-times-circle col-red"></i></button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundRepeat">Podklad (opakování)</label>
-                                </th>
-                                <td>
-                                    <select id="form-overlay-backgroundRepeat" name="backgroundRepeat" data-default="no-repeat">
-                                        <option value="no-repeat">no-repeat</option>
-                                        <option value="repeat">repeat</option>
-                                        <option value="repeat-x">repeat-x</option>
-                                        <option value="repeat-y">repeat-y</option>
-                                        <option value="round">round</option>
-                                        <option value="space">space</option>
-                                        <option value="unset">unset</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundSize">Podklad (velikost)</label>
-                                </th>
-                                <td>
-                                    <select class="helper" id="form-overlay-backgroundSize" name="backgroundSize" data-default="auto">
-                                        <option value="auto">auto</option>
-                                        <option value="contain">contain</option>
-                                        <option value="cover">cover</option>
-                                        <option value="inherit">inherit</option>
-                                        <option value="round">round</option>
-                                        <option value="initial">initial</option>
-                                        <option value="revert">revert</option>
-                                        <option value="revert">unset</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundPositionX">Podklad (pozice X)</label>
-                                </th>
-                                <td>
-                                    <select class="helper" id="form-overlay-backgroundPositionX" name="backgroundPositionX" data-default="">
-                                        <option value="">[zvolte]</option>
-                                        <option value="center">center</option>
-                                        <option value="inherit">inherit</option>
-                                        <option value="initial">initial</option>
-                                        <option value="left">left</option>
-                                        <option value="revert">revert</option>
-                                        <option value="right">right</option>
-                                        <option value="unset">unset</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-backgroundPositionY">Podklad (pozice Y)</label>
-                                </th>
-                                <td>
-                                    <select class="helper" id="form-overlay-backgroundPositionY" name="backgroundPositionY" data-default="">
-                                        <option value="">[zvolte]</option>
-                                        <option value="bottom">bottom</option>
-                                        <option value="center">center</option>
-                                        <option value="inherit">inherit</option>
-                                        <option value="initial">initial</option>
-                                        <option value="revert">revert</option>
-                                        <option value="top">top</option>
-                                        <option value="unset">unset</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-opacity">Neprůhlednost</label>
-                                </th>
-                                <td>
-                                    <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01" data-default="1">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="form-overlay-zIndex">z-index</label>
-                                </th>
-                                <td>
-                                    <input id="form-overlay-zIndex" name="zIndex" data-default="100">
-                                </td>
-                            </tr>
-                        </tbody>
+                        </thead>
+                        <tbody></tbody>
                     </table>
                 </form>
 
@@ -1062,7 +962,128 @@
                 <h3>Theme name</h3>
             </figure>
         </div>
-        <script src="js/index.js?v=4"></script>
+        <table id="overlay-form-source" style="display: none;">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="form-overlay-display">Zobrazit překryv</label>
+                    </th>
+                    <td>
+                        <select id="form-overlay-display" name="display" data-default="block">
+                            <option value="block">ANO</option>
+                            <option value="none">NE</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundColor">Podkladová barva</label>
+                    </th>
+                    <td>
+                        <input id="form-overlay-backgroundColor" name="backgroundColor" data-default="transparent">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundImage">Podklad (obrázek)</label>
+                    </th>
+                    <td>
+                        <input id="form-overlay-backgroundImage" name="backgroundImage" data-default="">
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button id="form-overlay-button">Načíst obrázek</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundRepeat">Podklad (opakování)</label>
+                    </th>
+                    <td>
+                        <select id="form-overlay-backgroundRepeat" name="backgroundRepeat" data-default="no-repeat">
+                            <option value="no-repeat">no-repeat</option>
+                            <option value="repeat">repeat</option>
+                            <option value="repeat-x">repeat-x</option>
+                            <option value="repeat-y">repeat-y</option>
+                            <option value="round">round</option>
+                            <option value="space">space</option>
+                            <option value="unset">unset</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundSize">Podklad (velikost)</label>
+                    </th>
+                    <td>
+                        <select class="helper" id="form-overlay-backgroundSize" name="backgroundSize" data-default="auto">
+                            <option value="auto">auto</option>
+                            <option value="contain">contain</option>
+                            <option value="cover">cover</option>
+                            <option value="inherit">inherit</option>
+                            <option value="round">round</option>
+                            <option value="initial">initial</option>
+                            <option value="revert">revert</option>
+                            <option value="revert">unset</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundPositionX">Podklad (pozice X)</label>
+                    </th>
+                    <td>
+                        <select class="helper" id="form-overlay-backgroundPositionX" name="backgroundPositionX" data-default="">
+                            <option value="">[zvolte]</option>
+                            <option value="center">center</option>
+                            <option value="inherit">inherit</option>
+                            <option value="initial">initial</option>
+                            <option value="left">left</option>
+                            <option value="revert">revert</option>
+                            <option value="right">right</option>
+                            <option value="unset">unset</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-backgroundPositionY">Podklad (pozice Y)</label>
+                    </th>
+                    <td>
+                        <select class="helper" id="form-overlay-backgroundPositionY" name="backgroundPositionY" data-default="">
+                            <option value="">[zvolte]</option>
+                            <option value="bottom">bottom</option>
+                            <option value="center">center</option>
+                            <option value="inherit">inherit</option>
+                            <option value="initial">initial</option>
+                            <option value="revert">revert</option>
+                            <option value="top">top</option>
+                            <option value="unset">unset</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-opacity">Neprůhlednost</label>
+                    </th>
+                    <td>
+                        <input id="form-overlay-opacity" name="opacity" value="1" type="number" min="0" max="1" step=".01" data-default="0.1">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="form-overlay-zIndex">z-index</label>
+                    </th>
+                    <td>
+                        <input id="form-overlay-zIndex" name="zIndex">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="overlay-source" class="overlay" style="display: none;"></div>
+        <script src="js/index.js?v=5"></script>
         <div class="example"></div>
     </body>
 </html>

@@ -5,7 +5,8 @@ class Themes {
         "Budovatelský": "pribehy-z-jizniho-mesta.json",
         "Skenovaná obálka": "theme01.json",
         "Z fotografie": "theme02.json",
-        "S překryvem": "theme03.json"
+        "S překryvem": "theme03.json",
+        "HTML text": "theme04.json"
     };
 
     applyButton;

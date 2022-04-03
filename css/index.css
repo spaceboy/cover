@@ -45,7 +45,7 @@ h1, h2, h3 {
     height: 100%;
     left: 0;
     opacity: 0.1;
-    pointer-events:none;
+    pointer-events: none;
     position: absolute;
     top: 0;
     width: 100%;

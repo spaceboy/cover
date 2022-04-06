@@ -167,7 +167,7 @@ class StyleManager {
             Panel.selectPanel(el);
             var panel = StyleManager.attr2json(el, document.getElementById("attributes"));
             panel["panelTitle"] = el.getAttribute("data-title");
-            panel["panelFilters"] = this.filter2json(document.getElementById("filters-panel"))
+            panel["panelFilters"] = this.filter2json(document.getElementById("filters-panel"));
             panels.push(panel);
         }
         if (panelActiveOriginal) {

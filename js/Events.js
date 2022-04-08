@@ -80,7 +80,7 @@ class Events {
                         var el = document.createElement("style");
                         el.setAttribute("data-type", "font");
                         el.setAttribute("data-name", fontName);
-                        el.innerHTML = "@font-face {font-family:\"" + fontName + "\"; src:url(\"" + e.target.result + "\") " + fontFormat + ";}";
+                        el.innerHTML = "@font-face {font-family: \"" + fontName + "\";src:url(\"" + e.target.result + "\") " + fontFormat + ";}";
                         document.head.appendChild(el);
                         // Add font to selects:
                         StyleManager.addFontToSelect(fontName);

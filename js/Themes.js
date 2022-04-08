@@ -41,7 +41,7 @@ class Themes {
     }
 
     onLoadBuffer (e) {
-        var t = this.buffer.contentDocument.body.innerText.trim();
+        var t = this.buffer.contentDocument.body.textContent.trim();
         if (!t) {
             return;
         }

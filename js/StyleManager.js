@@ -245,7 +245,7 @@ class StyleManager {
                     var el = document.createElement("style");
                     el.setAttribute("data-type", "font");
                     el.setAttribute("data-name", f);
-                    el.innerHTML = data["fonts"]["upload"][f];
+                    el.innerText = data["fonts"]["upload"][f];
                     document.head.appendChild(el);
                     StyleManager.addFontToSelect(f);
                 }

@@ -18,6 +18,7 @@ new StyleManager(
 
 // Load fonts:
 var fontManager = new FontManager({
+    "Amatic+SC:wght@400;700": "Amatic SC",
     "Amita": "Amita",
     "Bangers": "Bangers",
     "Berkshire+Swash": "Berkshire Swash",

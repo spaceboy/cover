@@ -2,6 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta property="og:title" content="e-book Cover generator">
+        <meta property="og:image" content="gfx/icon-512.png">
         <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett">
         <meta http-equiv="X-Clacks-Overhead" content="Слава Україні! Героям слава!">
         <title>Cover generator</title>
@@ -243,10 +245,16 @@
                                     <label for="attributes-fontWeight">Tučnost písma</label>
                                 </th>
                                 <td>
-                                    <select data-target="div.text" id="attributes-fontWeight" name="fontWeight">
-                                        <option value="">--</option>
-                                        <option value="normal">normální</option>
-                                        <option value="bold">tučné</option>
+                                    <select data-target="div.text" id="attributes-fontWeight" name="fontWeight" data-default="normal">
+                                        <option value="100">Thin (100)</option>
+                                        <option value="200">ExtraLight (200)</option>
+                                        <option value="300">Light (300)</option>
+                                        <option value="normal">Regular (400)</option>
+                                        <option value="500">Medium (500)</option>
+                                        <option value="600">SemiBold (600)</option>
+                                        <option value="bold">Bold (700)</option>
+                                        <option value="800">ExtraBold (800)</option>
+                                        <option value="900">Black (900)</option>
                                     </select>
                                 </td>
                             </tr>
@@ -255,8 +263,7 @@
                                     <label for="attributes-fontStyle">Styl písma</label>
                                 </th>
                                 <td>
-                                    <select data-target="div.text" id="attributes-fontStyle" name="fontStyle">
-                                        <option value="">--</option>
+                                    <select data-target="div.text" id="attributes-fontStyle" name="fontStyle" data-default="normal">
                                         <option value="normal">normální</option>
                                         <option value="italic">kurzíva</option>
                                     </select>
@@ -267,8 +274,7 @@
                                     <label for="attributes-fontVariant">Varianta písma</label>
                                 </th>
                                 <td>
-                                    <select data-target="div.text" id="attributes-fontVariant" name="fontVariant">
-                                        <option value="">--</option>
+                                    <select data-target="div.text" id="attributes-fontVariant" name="fontVariant" data-default="normal">
                                         <option value="normal">normální</option>
                                         <option value="small-caps">small-caps</option>
                                     </select>

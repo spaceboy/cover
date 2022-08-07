@@ -326,7 +326,7 @@ class StyleManager {
         this.getStyle();
         var link = document.createElement("a");
         link.download = StyleManager.getProjectFilename("json");
-        link.href =  "data:text/json;charset=utf-8," + encodeURIComponent(this.textarea.value);
+        link.href = "data:text/json;charset=utf-8," + encodeURIComponent(this.textarea.value);
         link.click();
     }
 
